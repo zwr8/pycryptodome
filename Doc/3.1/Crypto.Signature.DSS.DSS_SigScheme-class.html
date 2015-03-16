@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Crypto.Signature.DSS.DSS_SigScheme</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="Crypto-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.pycryptodome.org/">PyCryptodome.org</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="Crypto-module.html">Package&nbsp;Crypto</a> ::
+        <a href="Crypto.Signature-module.html">Package&nbsp;Signature</a> ::
+        <a href="Crypto.Signature.DSS-module.html">Module&nbsp;DSS</a> ::
+        Class&nbsp;DSS_SigScheme
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class DSS_SigScheme</h1><p class="nomargin-top"></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">DSS_SigScheme</strong>
+</pre>
+
+<hr />
+This signature scheme can perform DSS signature or verification.
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Methods</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Signature.DSS.DSS_SigScheme-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">mode</span>,
+        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">binary</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">randfunc</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Initialize this Digital Signature Standard object.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="can_sign"></a><span class="summary-sig-name">can_sign</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return True if this signature object can be used
+for signing messages.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Signature.DSS.DSS_SigScheme-class.html#sign" class="summary-sig-name">sign</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg_hash</span>)</span><br />
+      Produce the DSS signature of a message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Signature.DSS.DSS_SigScheme-class.html#verify" class="summary-sig-name">verify</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg_hash</span>,
+        <span class="summary-sig-arg">signature</span>)</span><br />
+      Verify that a certain DSS signature is authentic.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Class Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="Crypto.Signature.DSS.DSS_SigScheme-class.html#fips_186_3_ln" class="summary-name">fips_186_3_ln</a> = <code title="((1024, 160), (2048, 224), (2048, 256), (3072, 256))"><code class="variable-group">(</code><code class="variable-group">(</code>1024<code class="variable-op">, </code>160<code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>2048<code class="variable-op">, </code>224<code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>2048<code class="variable-op">, </code>256<code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>3072<code class="variable-op">,</code><code class="variable-ellipsis">...</code></code><br />
+      List of L (bit length of p) and N (bit length of q) combinations
+that are allowed by FIPS 186-3.
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Properties</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Method Details</span></td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">key</span>,
+        <span class="sig-arg">mode</span>,
+        <span class="sig-arg">encoding</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">binary</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">randfunc</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Initialize this Digital Signature Standard object.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><p><strong class="pname"><code>key</code></strong> (a DSA key object) - If the key has the private half, both signature and
+verification are possible.
+If it only has the public half, verification is possible
+but not signature generation.</p>
+<p>Let <em>L</em> and <em>N</em> be the bit lengths of the modules <em>p</em> and <em>q</em>.</p>
+<p>If mode is <em>'fips-186-3'</em>,
+the combination <em>(L,N)</em> must apper in the following list,
+in compliance to section 4.2 of <a class="rst-reference external" href="http://csrc.nist.gov/publications/fips/fips186-3/fips_186-3.pdf" target="_top">FIPS-186</a>:</p>
+<ul class="rst-simple">
+<li>(1024, 160)</li>
+<li>(2048, 224)</li>
+<li>(2048, 256)</li>
+<li>(3072, 256)</li>
+</ul>
+<p>Note that the FIPS specification also defines how the key
+must be generated. PyCrypto does not generate DSA keys
+in a FIPS compliant way.</p></li>
+        <li><p><strong class="pname"><code>mode</code></strong> (string) - The parameter can take these values:</p>
+<ul class="rst-simple">
+<li><em>'fips-186-3'</em>. The signature generation is carried out
+according to <a class="rst-reference external" href="http://csrc.nist.gov/publications/fips/fips186-3/fips_186-3.pdf" target="_top">FIPS-186</a>: the nonce <em>k</em> is taken from the RNG.</li>
+<li><em>'deterministic-rfc6979'</em>. The signature generation
+process does not rely on a random generator.
+See <a class="rst-reference external" href="http://tools.ietf.org/html/rfc6979" target="_top">RFC6979</a>.</li>
+</ul></li>
+        <li><p><strong class="pname"><code>encoding</code></strong> (string) - How the signature is encoded. This value determines the output of
+<tt class="rst-docutils literal">sign</tt> and the input of <tt class="rst-docutils literal">verify</tt>.</p>
+<p>The following values are accepted:</p>
+<ul class="rst-simple">
+<li><em>'binary'</em>, the signature is the raw concatenation
+of <em>r</em> and <em>s</em>. The size in bytes of the signature is always
+two times the size of <em>q</em>.</li>
+<li><em>'der'</em>, the signature is a DER encoded SEQUENCE with two
+INTEGERs, <em>r</em> and <em>s</em>. The size of the signature is variable.</li>
+</ul></li>
+        <li><strong class="pname"><code>randfunc</code></strong> (callable) - The source of randomness. If <code class="link">None</code>, the internal RNG is used.
+It is not used under mode <em>'deterministic-rfc6979'</em>.</li>
+    </ul></dd>
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="sign"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">sign</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msg_hash</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  Produce the DSS signature of a message.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><p><strong class="pname"><code>msg_hash</code></strong> (hash object) - The hash that was carried out over the message.
+The object belongs to the <a href="Crypto.Hash-module.html" class="link">Crypto.Hash</a> package.</p>
+<p>Under mode <em>'fips-186-3'</em>, the hash must be a FIPS
+approved secure hash (SHA-1 or a member of the SHA-2 family).</p></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>The signature encoded as a byte string.</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - If the hash algorithm is incompatible to the DSA key.</li>
+        <li><code><strong class='fraise'>TypeError</strong></code> - If the DSA key has no private half.</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="verify"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">verify</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msg_hash</span>,
+        <span class="sig-arg">signature</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Verify that a certain DSS signature is authentic.</p>
+<p>This function checks if the party holding the private half of the key
+really signed the message.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><p><strong class="pname"><code>msg_hash</code></strong> (hash object) - The hash that was carried out over the message.
+This is an object belonging to the <a href="Crypto.Hash-module.html" class="link">Crypto.Hash</a> module.</p>
+<p>Under mode <em>'fips-186-3'</em>, the hash must be a FIPS
+approved secure hash (SHA-1 or a member of the SHA-2 family).</p></li>
+        <li><strong class="pname"><code>signature</code></strong> (byte string) - The signature that needs to be validated.</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - If the signature is not authentic.</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== CLASS VARIABLE DETAILS ==================== -->
+<a name="section-ClassVariableDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Class Variable Details</span></td>
+</tr>
+</table>
+<a name="fips_186_3_ln"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">fips_186_3_ln</h3>
+  List of L (bit length of p) and N (bit length of q) combinations
+that are allowed by FIPS 186-3.
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">(</code><code class="variable-group">(</code>1024<code class="variable-op">, </code>160<code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>2048<code class="variable-op">, </code>224<code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>2048<code class="variable-op">, </code>256<code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>3072<code class="variable-op">, </code>256<code class="variable-group">)</code><code class="variable-group">)</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="Crypto-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.pycryptodome.org/">PyCryptodome.org</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Mon Mar 16 21:14:20 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
