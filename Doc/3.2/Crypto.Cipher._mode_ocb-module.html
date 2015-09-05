@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Crypto.Cipher._mode_ocb</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="Crypto-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.pycryptodome.org/">PyCryptodome.org</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="Crypto-module.html">Package&nbsp;Crypto</a> ::
+        <a href="Crypto.Cipher-module.html">Package&nbsp;Cipher</a> ::
+        Module&nbsp;_mode_ocb
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module _mode_ocb</h1><p class="nomargin-top"></p>
+<p>Offset Codebook (OCB) mode.</p>
+<p>OCB is Authenticated Encryption with Associated Data (AEAD) cipher mode
+designed by Prof. Phillip Rogaway and specified in <a class="rst-reference external" href="http://www.rfc-editor.org/info/rfc7253" target="_top">RFC7253</a>.</p>
+<p>The algorithm provides both authenticity and privacy, it is very efficient,
+it uses only one key and it can be used in online mode (so that encryption
+or decryption can start before the end of the message is available).</p>
+<p>This module implements the third and last variant of OCB (OCB3) and it only
+works in combination with a 128-bit block symmetric cipher, like AES.</p>
+<p>OCB is patented in US but <a class="rst-reference external" href="http://web.cs.ucdavis.edu/~rogaway/ocb/license.htm" target="_top">free licenses</a> exist for software implementations
+meant for non-military purposes.</p>
+<dl class="rst-docutils">
+<dt>Example:</dt>
+<dd><pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Cipher <span class="py-keyword">import</span> AES
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Random <span class="py-keyword">import</span> get_random_bytes
+<span class="py-prompt">&gt;&gt;&gt;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>key = get_random_bytes(32)
+<span class="py-prompt">&gt;&gt;&gt; </span>nonce = get_random_bytes(16)
+<span class="py-prompt">&gt;&gt;&gt; </span>cipher = AES.new(key, AES.MODE_OCB, nonce=nonce)
+<span class="py-prompt">&gt;&gt;&gt; </span>plaintext = b<span class="py-string">&quot;Attack at dawn&quot;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>ciphertext, mac = cipher.encrypt_and_digest(plaintext)
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-comment"># Deliver nonce, ciphertext and mac</span>
+<span class="py-more">...</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>cipher = AES.new(key, AES.MODE_OCB, nonce=nonce)
+<span class="py-prompt">&gt;&gt;&gt; </span>try:
+<span class="py-prompt">&gt;&gt;&gt; </span>    plaintext = cipher.decrypt_and_verify(ciphertext, mac)
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">except</span> ValueError:
+<span class="py-prompt">&gt;&gt;&gt; </span>    <span class="py-keyword">print</span> <span class="py-string">&quot;Invalid message&quot;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">else</span>:
+<span class="py-prompt">&gt;&gt;&gt; </span>    <span class="py-keyword">print</span> plaintext</pre>
+</dd>
+</dl>
+
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Classes</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="Crypto.Cipher._mode_ocb.OcbMode-class.html" class="summary-name">OcbMode</a><br />
+      Offset Codebook (OCB) mode.
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="Crypto-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.pycryptodome.org/">PyCryptodome.org</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Sep  5 22:08:38 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
