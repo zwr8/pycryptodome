@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Crypto.Util.Counter</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="Crypto-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.pycryptodome.org/">PyCryptodome.org</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="Crypto-module.html">Package&nbsp;Crypto</a> ::
+        <a href="Crypto.Util-module.html">Package&nbsp;Util</a> ::
+        Module&nbsp;Counter
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module Counter</h1><p class="nomargin-top"></p>
+<p>Fast counter functions for CTR cipher modes.</p>
+<p>CTR is a chaining mode for symmetric block encryption or decryption.
+Messages are divideded into blocks, and the cipher operation takes
+place on each block using the secret key and a unique <em>counter block</em>.</p>
+<p>The most straightforward way to fulfil the uniqueness property is
+to start with an initial, random <em>counter block</em> value, and increment it as
+the next block is processed.</p>
+<p>The block ciphers from <a href="Crypto.Cipher-module.html" class="link">Crypto.Cipher</a> (when configured in <em>MODE_CTR</em> mode)
+invoke a callable object (the <em>counter</em> parameter) to get the next <em>counter block</em>.
+Unfortunately, the Python calling protocol leads to major performance degradations.</p>
+<p>The counter functions instantiated by this module will be invoked directly
+by the ciphers in <a href="Crypto.Cipher-module.html" class="link">Crypto.Cipher</a>. The fact that the Python layer is bypassed
+lead to more efficient (and faster) execution of CTR cipher modes.</p>
+<p>An example of usage is the following:</p>
+<blockquote>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Cipher <span class="py-keyword">import</span> AES
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Util <span class="py-keyword">import</span> Counter
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto <span class="py-keyword">import</span> Random
+<span class="py-prompt">&gt;&gt;&gt;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>nonce = Random.get_random_bytes(8)
+<span class="py-prompt">&gt;&gt;&gt; </span>ctr = Counter.new(64, nonce)
+<span class="py-prompt">&gt;&gt;&gt; </span>key = b<span class="py-string">'AES-128 symm key'</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>plaintext = b<span class="py-string">'X'</span>*1000000
+<span class="py-prompt">&gt;&gt;&gt; </span>cipher = AES.new(key, AES.MODE_CTR, counter=ctr)
+<span class="py-prompt">&gt;&gt;&gt; </span>ciphertext = cipher.encrypt(plaintext)</pre>
+</blockquote>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Util.Counter-module.html#new" class="summary-sig-name">new</a>(<span class="summary-sig-arg">nbits</span>,
+        <span class="summary-sig-arg">prefix</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">suffix</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">initial_value</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">little_endian</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">allow_wraparound</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Create a stateful counter block function suitable for CTR encryption modes.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'Crypto.Util'"><code class="variable-quote">'</code><code class="variable-string">Crypto.Util</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="new"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">new</span>(<span class="sig-arg">nbits</span>,
+        <span class="sig-arg">prefix</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">suffix</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">initial_value</span>=<span class="sig-default">1</span>,
+        <span class="sig-arg">little_endian</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">allow_wraparound</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create a stateful counter block function suitable for CTR encryption modes.</p>
+<p>Each call to the function returns the next counter block.
+Each counter block is made up by three parts:</p>
+<pre class="rst-literal-block">
+prefix || counter value || postfix
+</pre>
+<p>The counter value is incremented by 1 at each call.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>nbits</code></strong> (integer) - Length of the desired counter, in bits. It must be a multiple of 8.</li>
+        <li><strong class="pname"><code>prefix</code></strong> (byte string) - The constant prefix of the counter block. By default, no prefix is
+used.</li>
+        <li><strong class="pname"><code>suffix</code></strong> (byte string) - The constant postfix of the counter block. By default, no suffix is
+used.</li>
+        <li><strong class="pname"><code>initial_value</code></strong> (integer) - The initial value of the counter. Default value is 1.</li>
+        <li><strong class="pname"><code>little_endian</code></strong> (boolean) - If <em>True</em>, the counter number will be encoded in little endian format.
+If <em>False</em> (default), in big endian format.</li>
+        <li><strong class="pname"><code>allow_wraparound</code></strong> (boolean) - This parameter is ignored.</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>An object that can be passed with the 'counter' parameter to a CTR mode
+cipher.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="Crypto-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.pycryptodome.org/">PyCryptodome.org</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Mon Nov  2 08:07:05 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
