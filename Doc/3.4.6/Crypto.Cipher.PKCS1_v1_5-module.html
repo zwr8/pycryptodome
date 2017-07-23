@@ -67,7 +67,7 @@
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.PublicKey <span class="py-keyword">import</span> RSA
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Hash <span class="py-keyword">import</span> SHA
 <span class="py-prompt">&gt;&gt;&gt;</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>message = <span class="py-string">'To be encrypted'</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>message = b<span class="py-string">'To be encrypted'</span>
 <span class="py-prompt">&gt;&gt;&gt; </span>h = SHA.new(message)
 <span class="py-prompt">&gt;&gt;&gt;</span>
 <span class="py-prompt">&gt;&gt;&gt; </span>key = RSA.importKey(open(<span class="py-string">'pubkey.der'</span>).read())
@@ -125,7 +125,8 @@ the RSA key:</p>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="Crypto.Cipher.PKCS1_v1_5-module.html#new" class="summary-sig-name">new</a>(<span class="summary-sig-arg">key</span>)</span><br />
+          <td><span class="summary-sig"><a href="Crypto.Cipher.PKCS1_v1_5-module.html#new" class="summary-sig-name">new</a>(<span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">randfunc</span>=<span class="summary-sig-default">None</span>)</span><br />
       Return a cipher object <a href="Crypto.Cipher.PKCS1_v1_5.PKCS115_Cipher-class.html" class="link">PKCS115\_Cipher</a> that can be used to perform PKCS#1 v1.5 encryption or decryption.</td>
           <td align="right" valign="top">
             
@@ -153,7 +154,8 @@ the RSA key:</p>
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">new</span>(<span class="sig-arg">key</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">new</span>(<span class="sig-arg">key</span>,
+        <span class="sig-arg">randfunc</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -166,6 +168,8 @@ the RSA key:</p>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>key</code></strong> (RSA key object) - The key to use to encrypt or decrypt the message. This is a <a href="Crypto.PublicKey.RSA-module.html" class="link">Crypto.PublicKey.RSA</a> object.
 Decryption is only possible if <em>key</em> is a private RSA key.</li>
+        <li><strong class="pname"><code>randfunc</code></strong> (callable) - Function that return random bytes.
+The default is <a href="Crypto.Random-module.html#get_random_bytes" class="link" onclick="show_private();">Crypto.Random.get\_random\_bytes</a>.</li>
     </ul></dd>
   </dl>
 </td></tr></table>

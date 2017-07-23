@@ -57,7 +57,7 @@
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module SHA384</h1><p class="nomargin-top"></p>
 <p>SHA-384 cryptographic hash algorithm.</p>
-<p>SHA-384 belongs to the <a class="rst-reference external" href="http://csrc.nist.gov/publications/fips/fips180-2/fips180-2.pdf" target="_top">SHA-2</a> family of cryptographic hashes.
+<p>SHA-384 belongs to the <a class="rst-reference external" href="http://csrc.nist.gov/publications/fips/fips180-2/fips180-4.pdf" target="_top">SHA-2</a> family of cryptographic hashes.
 It produces the 384 bit digest of a message.</p>
 <blockquote>
 <pre class="py-doctest">
@@ -125,6 +125,13 @@ It produces the 384 bit digest of a message.</p>
         <a name="digest_size"></a><span class="summary-name">digest_size</span> = <code title="48">48</code>
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="block_size"></a><span class="summary-name">block_size</span> = <code title="128">128</code>
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -154,7 +161,7 @@ It produces the 384 bit digest of a message.</p>
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>data</code></strong> (byte string) - The very first chunk of the message to hash.
-It is equivalent to an early call to <a href="Crypto.Hash.hashalgo.HashAlgo-class.html#update" class="link">SHA384Hash.update()</a>.
+It is equivalent to an early call to <a href="Crypto.Hash.SHA384.SHA384Hash-class.html#update" class="link">SHA384Hash.update()</a>.
 Optional.</li>
     </ul></dd>
     <dt>Returns:</dt>

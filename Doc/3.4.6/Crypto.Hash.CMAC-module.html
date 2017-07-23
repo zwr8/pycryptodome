@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Crypto.Hash.CMAC</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="Crypto-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.pycryptodome.org/">PyCryptodome.org</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="Crypto-module.html">Package&nbsp;Crypto</a> ::
+        <a href="Crypto.Hash-module.html">Package&nbsp;Hash</a> ::
+        Module&nbsp;CMAC
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module CMAC</h1><p class="nomargin-top"></p>
+<p>CMAC (Cipher-based Message Authentication Code) algorithm</p>
+<p>CMAC is a MAC defined in <a class="rst-reference external" href="http://csrc.nist.gov/publications/nistpubs/800-38B/SP_800-38B.pdf" target="_top">NIST SP 800-38B</a> and in <a class="rst-reference external" href="http://www.ietf.org/rfc/rfc4493.txt" target="_top">RFC4493</a> (for AES only)
+and constructed using a block cipher. It was originally known as <a class="rst-reference external" href="http://www.nuee.nagoya-u.ac.jp/labs/tiwata/omac/omac.html" target="_top">OMAC1</a>.</p>
+<p>The algorithm is sometimes named <em>X-CMAC</em> where <em>X</em> is the name
+of the cipher (e.g. AES-CMAC).</p>
+<p>This is an example showing how to <em>create</em> an AES-CMAC:</p>
+<blockquote>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Hash <span class="py-keyword">import</span> CMAC
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Cipher <span class="py-keyword">import</span> AES
+<span class="py-prompt">&gt;&gt;&gt;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>secret = b<span class="py-string">'Sixteen byte key'</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>cobj = CMAC.new(secret, ciphermod=AES)
+<span class="py-prompt">&gt;&gt;&gt; </span>cobj.update(b<span class="py-string">'Hello'</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> cobj.hexdigest()</pre>
+</blockquote>
+<p>And this is an example showing how to <em>check</em> an AES-CMAC:</p>
+<blockquote>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Hash <span class="py-keyword">import</span> CMAC
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Cipher <span class="py-keyword">import</span> AES
+<span class="py-prompt">&gt;&gt;&gt;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-comment"># We have received a message 'msg' together</span>
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-comment"># with its MAC 'mac'</span>
+<span class="py-prompt">&gt;&gt;&gt;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>secret = b<span class="py-string">'Sixteen byte key'</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>cobj = CMAC.new(secret, ciphermod=AES)
+<span class="py-prompt">&gt;&gt;&gt; </span>cobj.update(msg)
+<span class="py-prompt">&gt;&gt;&gt; </span>try:
+<span class="py-prompt">&gt;&gt;&gt; </span>  cobj.verify(mac)
+<span class="py-prompt">&gt;&gt;&gt; </span>  <span class="py-keyword">print</span> <span class="py-string">&quot;The message '%s' is authentic&quot;</span> % msg
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">except</span> ValueError:
+<span class="py-prompt">&gt;&gt;&gt; </span>  <span class="py-keyword">print</span> <span class="py-string">&quot;The message or the key is wrong&quot;</span></pre>
+</blockquote>
+<p>A cipher block size of 128 bits (like for AES) guarantees that the risk
+of MAC collisions remains negligeable even when the same CMAC key is
+used to authenticate a large amount of data (2^22 Gbytes).</p>
+<p>This implementation allows also usage of ciphers with a 64 bits block size
+(like TDES) for legacy purposes only.
+However, the risk is much higher and one CMAC key should be rotated
+after as little as 16 MBytes (in total) have been authenticated.</p>
+
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Classes</span></td>
+</tr>
+<tr>
+    <td class="summary" colspan="2">
+        <a href="Crypto.Hash.CMAC.CMAC-class.html" class="summary-name">CMAC</a><br />
+      Class that implements CMAC
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Hash.CMAC-module.html#new" class="summary-sig-name">new</a>(<span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">msg</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ciphermod</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">cipher_params</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Create a new CMAC object.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="digest_size"></a><span class="summary-name">digest_size</span> = <code title="None">None</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="new"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">new</span>(<span class="sig-arg">key</span>,
+        <span class="sig-arg">msg</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">ciphermod</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">cipher_params</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  Create a new CMAC object.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>key</code></strong> (byte string) - secret key for the CMAC object.
+The key must be valid for the underlying cipher algorithm.
+For instance, it must be 16 bytes long for AES-128.</li>
+        <li><strong class="pname"><code>msg</code></strong> (byte string) - The very first chunk of the message to authenticate.
+It is equivalent to an early call to <a href="Crypto.Hash.CMAC.CMAC-class.html#update" class="link">CMAC.update</a>. Optional.</li>
+        <li><strong class="pname"><code>ciphermod</code></strong> (module) - A cipher module from <a href="Crypto.Cipher-module.html" class="link">Crypto.Cipher</a>.
+The cipher's block size has to be 128 bits,
+like <a href="Crypto.Cipher.AES-module.html" class="link">Crypto.Cipher.AES</a>, to reduce the probability of collisions.</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>A <a href="Crypto.Hash.CMAC.CMAC-class.html" class="link">CMAC</a> object</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="Crypto-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.pycryptodome.org/">PyCryptodome.org</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

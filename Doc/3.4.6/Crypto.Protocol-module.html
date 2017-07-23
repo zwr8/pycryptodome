@@ -59,14 +59,10 @@
 <p>Implements various cryptographic protocols.  (Don't expect to find
 network protocols here.)</p>
 <dl class="rst-docutils">
-<dt>Crypto.Protocol.AllOrNothing</dt>
-<dd>Transforms a message into a set of message blocks, such that the blocks
-can be recombined to get the message back.</dd>
-<dt>Crypto.Protocol.Chaffing</dt>
-<dd>Takes a set of authenticated message blocks (the wheat) and adds a number
-of randomly generated blocks (the chaff).</dd>
 <dt>Crypto.Protocol.KDF</dt>
 <dd>A collection of standard key derivation functions.</dd>
+<dt>Crypto.Protocol.SecretSharing</dt>
+<dd>Distribute a secret amongst a group of participants.</dd>
 </dl>
 
 <!-- ==================== SUBMODULES ==================== -->
@@ -79,9 +75,8 @@ of randomly generated blocks (the chaff).</dd>
 </tr>
   <tr><td class="summary">
   <ul class="nomargin">
-    <li> <strong class="uidlink"><a href="Crypto.Protocol.AllOrNothing-module.html">Crypto.Protocol.AllOrNothing</a></strong>: <em class="summary">This file implements all-or-nothing package transformations.</em>    </li>
-    <li> <strong class="uidlink"><a href="Crypto.Protocol.Chaffing-module.html">Crypto.Protocol.Chaffing</a></strong>: <em class="summary">This file implements the chaffing algorithm.</em>    </li>
     <li> <strong class="uidlink"><a href="Crypto.Protocol.KDF-module.html">Crypto.Protocol.KDF</a></strong>: <em class="summary">This file contains a collection of standard key derivation functions.</em>    </li>
+    <li> <strong class="uidlink"><a href="Crypto.Protocol.SecretSharing-module.html">Crypto.Protocol.SecretSharing</a></strong>: <em class="summary">This file implements secret sharing protocols.</em>    </li>
   </ul></td></tr>
 </table>
 

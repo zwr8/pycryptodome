@@ -55,8 +55,8 @@
     </td>
   </tr>
 </table>
-<!-- ==================== CLASSOBJ DESCRIPTION ==================== -->
-<h1 class="epydoc">classobj PKCS115_Cipher</h1><p class="nomargin-top"></p>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class PKCS115_Cipher</h1><p class="nomargin-top"></p>
 This cipher can perform PKCS#1 v1.5 RSA encryption or decryption.
 
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -74,7 +74,8 @@ This cipher can perform PKCS#1 v1.5 RSA encryption or decryption.
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="Crypto.Cipher.PKCS1_v1_5.PKCS115_Cipher-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">key</span>)</span><br />
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">randfunc</span>)</span><br />
       Initialize this PKCS#1 v1.5 cipher object.</td>
           <td align="right" valign="top">
             
@@ -174,7 +175,8 @@ This cipher can perform PKCS#1 v1.5 RSA encryption or decryption.
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">key</span>)</span>
+        <span class="sig-arg">key</span>,
+        <span class="sig-arg">randfunc</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -188,6 +190,7 @@ This cipher can perform PKCS#1 v1.5 RSA encryption or decryption.
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>key</code></strong> (an RSA key object) - If a private half is given, both encryption and decryption are possible.
 If a public half is given, only encryption is possible.</li>
+        <li><strong class="pname"><code>randfunc</code></strong> (callable) - Function that returns random bytes.</li>
     </ul></dd>
   </dl>
 </td></tr></table>

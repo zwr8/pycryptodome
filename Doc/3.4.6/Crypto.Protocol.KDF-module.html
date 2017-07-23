@@ -113,20 +113,50 @@ master key, or to thwart attacks on pass phrases (e.g. via rainbow tables).</p>
       
     </td>
   </tr>
-</table>
-<!-- ==================== VARIABLES ==================== -->
-<a name="section-Variables"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Variables</span></td>
-</tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'Crypto.Protocol'"><code class="variable-quote">'</code><code class="variable-string">Crypto.Protocol</code><code class="variable-quote">'</code></code>
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Protocol.KDF-module.html#HKDF" class="summary-sig-name">HKDF</a>(<span class="summary-sig-arg">master</span>,
+        <span class="summary-sig-arg">key_len</span>,
+        <span class="summary-sig-arg">salt</span>,
+        <span class="summary-sig-arg">hashmod</span>,
+        <span class="summary-sig-arg">num_keys</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">context</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Derive one or more keys from a master secret using
+the HMAC-based KDF defined in <a class="rst-reference external" href="http://tools.ietf.org/html/rfc5869" target="_top">RFC5869</a>.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Protocol.KDF-module.html#scrypt" class="summary-sig-name">scrypt</a>(<span class="summary-sig-arg">password</span>,
+        <span class="summary-sig-arg">salt</span>,
+        <span class="summary-sig-arg">key_len</span>,
+        <span class="summary-sig-arg">N</span>,
+        <span class="summary-sig-arg">r</span>,
+        <span class="summary-sig-arg">p</span>,
+        <span class="summary-sig-arg">num_keys</span>=<span class="summary-sig-default">1</span>)</span><br />
+      Derive one or more keys from a passphrase.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
     </td>
   </tr>
 </table>
@@ -174,7 +204,7 @@ chosen for each derivation.</li>
         <li><strong class="pname"><code>count</code></strong> (integer) - The number of iterations to carry out. It's recommended to use at least 1000.</li>
         <li><strong class="pname"><code>hashAlgo</code></strong> (module) - The hash algorithm to use, as a module or an object from the <a href="Crypto.Hash-module.html" class="link">Crypto.Hash</a> package.
 The digest length must be no shorter than <tt class="rst-docutils literal">dkLen</tt>.
-The default algorithm is <a href="Crypto.Hash.SHA-module.html" class="link">SHA1</a>.</li>
+The default algorithm is <a href="Crypto.Hash.SHA1-module.html" class="link">SHA1</a>.</li>
     </ul></dd>
     <dt>Returns:</dt>
         <dd>A byte string of length <code class="link">dkLen</code> that can be used as key.</dd>
@@ -200,8 +230,8 @@ The default algorithm is <a href="Crypto.Hash.SHA-module.html" class="link">SHA1
   </tr></table>
   
   <p>Derive one or more keys from a password (or passphrase).</p>
-<p>This performs key derivation according to the PKCS#5 standard (v2.0),
-by means of the <tt class="rst-docutils literal">PBKDF2</tt> algorithm.</p>
+<p>This function performs key derivation according to
+the PKCS#5 standard (v2.0), by means of the <tt class="rst-docutils literal">PBKDF2</tt> algorithm.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -217,6 +247,108 @@ from two parameters: a secret and a salt. If not specified, HMAC-SHA1 is used.</
     <dt>Returns:</dt>
         <dd>A byte string of length <code class="link">dkLen</code> that can be used as key material.
 If you wanted multiple keys, just break up this string into segments of the desired length.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="HKDF"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">HKDF</span>(<span class="sig-arg">master</span>,
+        <span class="sig-arg">key_len</span>,
+        <span class="sig-arg">salt</span>,
+        <span class="sig-arg">hashmod</span>,
+        <span class="sig-arg">num_keys</span>=<span class="sig-default">1</span>,
+        <span class="sig-arg">context</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Derive one or more keys from a master secret using
+the HMAC-based KDF defined in <a class="rst-reference external" href="http://tools.ietf.org/html/rfc5869" target="_top">RFC5869</a>.</p>
+<p>This KDF is not suitable for deriving keys from a password or for key
+stretching. Use <a href="Crypto.Protocol.KDF-module.html#PBKDF2" class="link">PBKDF2</a> instead.</p>
+<p>HKDF is a key derivation method approved by NIST in <a class="rst-reference external" href="http://csrc.nist.gov/publications/nistpubs/800-56C/SP-800-56C.pdf" target="_top">SP 800 56C</a>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>master</code></strong> (byte string) - The unguessable value used by the KDF to generate the other keys.
+It must be a high-entropy secret, though not necessarily uniform.
+It must not be a password.</li>
+        <li><strong class="pname"><code>salt</code></strong> (byte string) - A non-secret, reusable value that strengthens the randomness
+extraction step.
+Ideally, it is as long as the digest size of the chosen hash.
+If empty, a string of zeroes in used.</li>
+        <li><strong class="pname"><code>key_len</code></strong> (integer) - The length in bytes of every derived key.</li>
+        <li><strong class="pname"><code>hashmod</code></strong> (module) - A cryptographic hash algorithm from <a href="Crypto.Hash-module.html" class="link">Crypto.Hash</a>.
+<a href="Crypto.Hash.SHA512-module.html" class="link">Crypto.Hash.SHA512</a> is a good choice.</li>
+        <li><strong class="pname"><code>num_keys</code></strong> (integer) - The number of keys to derive. Every key is <tt class="rst-docutils literal">key_len</tt> bytes long.
+The maximum cumulative length of all keys is
+255 times the digest size.</li>
+        <li><strong class="pname"><code>context</code></strong> (byte string) - Optional identifier describing what the keys are used for.</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>A byte string or a tuple of byte strings.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="scrypt"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">scrypt</span>(<span class="sig-arg">password</span>,
+        <span class="sig-arg">salt</span>,
+        <span class="sig-arg">key_len</span>,
+        <span class="sig-arg">N</span>,
+        <span class="sig-arg">r</span>,
+        <span class="sig-arg">p</span>,
+        <span class="sig-arg">num_keys</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Derive one or more keys from a passphrase.</p>
+<p>This function performs key derivation according to
+the <a class="rst-reference external" href="http://www.tarsnap.com/scrypt.html" target="_top">scrypt</a> algorithm, introduced in Percival's paper
+<a class="rst-reference external" href="http://www.tarsnap.com/scrypt/scrypt.pdf" target="_top">&quot;Stronger key derivation via sequential memory-hard functions&quot;</a>.</p>
+<p>This implementation is based on <a class="rst-reference external" href="https://tools.ietf.org/html/rfc7914" target="_top">RFC7914</a>.</p>
+<p>A good choice of parameters <em>(N, r , p)</em> was suggested
+by Colin Percival in his <a class="rst-reference external" href="http://www.tarsnap.com/scrypt/scrypt-slides.pdf" target="_top">presentation in 2009</a>:</p>
+<ul class="rst-simple">
+<li><em>(16384, 8, 1)</em> for interactive logins (&lt;=100ms)</li>
+<li><em>(1048576, 8, 1)</em> for file encryption (&lt;=5s)</li>
+</ul>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>password</code></strong> (string) - The secret pass phrase to generate the keys from.</li>
+        <li><strong class="pname"><code>salt</code></strong> (string) - A string to use for better protection from dictionary attacks.
+This value does not need to be kept secret,
+but it should be randomly chosen for each derivation.
+It is recommended to be at least 8 bytes long.</li>
+        <li><strong class="pname"><code>key_len</code></strong> (integer) - The length in bytes of every derived key.</li>
+        <li><strong class="pname"><code>N</code></strong> (integer) - CPU/Memory cost parameter. It must be a power of 2 and less
+than <tt class="rst-docutils literal"><span class="pre">2**32</span></tt>.</li>
+        <li><strong class="pname"><code>r</code></strong> (integer) - Block size parameter.</li>
+        <li><strong class="pname"><code>p</code></strong> (integer) - Parallelization parameter.
+It must be no greater than <tt class="rst-docutils literal"><span class="pre">(2**32-1)/(4r)</span></tt>.</li>
+        <li><strong class="pname"><code>num_keys</code></strong> (integer) - The number of keys to derive. Every key is <tt class="rst-docutils literal">key_len</tt> bytes long.
+By default, only 1 key is generated.
+The maximum cumulative length of all keys is <tt class="rst-docutils literal"><span class="pre">(2**32-1)*32</span></tt>
+(that is, 128TB).</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>A byte string or a tuple of byte strings.</dd>
   </dl>
 </td></tr></table>
 </div>

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Crypto.Math.Primality</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="Crypto-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.pycryptodome.org/">PyCryptodome.org</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="Crypto-module.html">Package&nbsp;Crypto</a> ::
+        <a href="Crypto.Math-module.html">Package&nbsp;Math</a> ::
+        Module&nbsp;Primality
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module Primality</h1><p class="nomargin-top"></p>
+Functions to create and test prime numbers.
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Math.Primality-module.html#miller_rabin_test" class="summary-sig-name">miller_rabin_test</a>(<span class="summary-sig-arg">candidate</span>,
+        <span class="summary-sig-arg">iterations</span>,
+        <span class="summary-sig-arg">randfunc</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Perform a Miller-Rabin primality test on an integer.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Math.Primality-module.html#lucas_test" class="summary-sig-name">lucas_test</a>(<span class="summary-sig-arg">candidate</span>)</span><br />
+      Perform a Lucas primality test on an integer.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Math.Primality-module.html#test_probable_prime" class="summary-sig-name">test_probable_prime</a>(<span class="summary-sig-arg">candidate</span>,
+        <span class="summary-sig-arg">randfunc</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Test if a number is prime.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Math.Primality-module.html#generate_probable_prime" class="summary-sig-name">generate_probable_prime</a>(<span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Generate a random probable prime.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Math.Primality-module.html#generate_probable_safe_prime" class="summary-sig-name">generate_probable_safe_prime</a>(<span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Generate a random, probable safe prime.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="COMPOSITE"></a><span class="summary-name">COMPOSITE</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="PROBABLY_PRIME"></a><span class="summary-name">PROBABLY_PRIME</span> = <code title="1">1</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="miller_rabin_test"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">miller_rabin_test</span>(<span class="sig-arg">candidate</span>,
+        <span class="sig-arg">iterations</span>,
+        <span class="sig-arg">randfunc</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Perform a Miller-Rabin primality test on an integer.</p>
+<p>The test is specified in Section C.3.1 of <a class="rst-reference external" href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf" target="_top">FIPS PUB 186-4</a>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>candidate</code></strong> (integer) - The number to test for primality.</li>
+        <li><strong class="pname"><code>iterations</code></strong> (integer) - The maximum number of iterations to perform before
+declaring a candidate a probable prime.</li>
+        <li><strong class="pname"><code>randfunc</code></strong> (callable) - An RNG function where bases are taken from.</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd><tt class="rst-docutils literal">Primality.COMPOSITE</tt> or <tt class="rst-docutils literal">Primality.PROBABLY_PRIME</tt>.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="lucas_test"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">lucas_test</span>(<span class="sig-arg">candidate</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Perform a Lucas primality test on an integer.</p>
+<p>The test is specified in Section C.3.3 of <a class="rst-reference external" href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf" target="_top">FIPS PUB 186-4</a>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>candidate</code></strong> (integer) - The number to test for primality.</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd><tt class="rst-docutils literal">Primality.COMPOSITE</tt> or <tt class="rst-docutils literal">Primality.PROBABLY_PRIME</tt>.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="test_probable_prime"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">test_probable_prime</span>(<span class="sig-arg">candidate</span>,
+        <span class="sig-arg">randfunc</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Test if a number is prime.</p>
+<p>A number is qualified as prime if it passes a certain
+number of Miller-Rabin tests (dependent on the size
+of the number, but such that probability of a false
+positive is less than 10^-30) and a single Lucas test.</p>
+<p>For instance, a 1024-bit candidate will need to pass
+4 Miller-Rabin tests.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>candidate</code></strong> (integer) - The number to test for primality.</li>
+        <li><strong class="pname"><code>randfunc</code></strong> (callable) - The routine to draw random bytes from to select Miller-Rabin bases.</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd><tt class="rst-docutils literal">PROBABLE_PRIME</tt> if the number if prime with very high probability.
+<tt class="rst-docutils literal">COMPOSITE</tt> if the number is a composite.
+For efficiency reasons, <tt class="rst-docutils literal">COMPOSITE</tt> is also returned for small primes.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="generate_probable_prime"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">generate_probable_prime</span>(<span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Generate a random probable prime.</p>
+<p>The prime will not have any specific properties
+(e.g. it will not be a <em>strong</em> prime).</p>
+<p>Random numbers are evaluated for primality until one
+passes all tests, consisting of a certain number of
+Miller-Rabin tests with random bases followed by
+a single Lucas test.</p>
+<p>The number of Miller-Rabin iterations is chosen such that
+the probability that the output number is a non-prime is
+less than 1E-30 (roughly 2^{-100}).</p>
+<p>This approach is compliant to <a class="rst-reference external" href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf" target="_top">FIPS PUB 186-4</a>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>exact_bits</code></strong> (integer) - The desired size in bits of the probable prime.
+It must be at least 160.</li>
+        <li><strong class="pname"><code>randfunc</code></strong> (callable) - An RNG function where candidate primes are taken from.</li>
+        <li><strong class="pname"><code>prime_filter</code></strong> (callable) - A function that takes an Integer as parameter and returns
+True if the number can be passed to further primality tests,
+False if it should be immediately discarded.</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>A probable prime in the range 2^exact_bits &gt; p &gt; 2^(exact_bits-1).</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="generate_probable_safe_prime"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">generate_probable_safe_prime</span>(<span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Generate a random, probable safe prime.</p>
+<p>Note this operation is much slower than generating a simple prime.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>exact_bits</code></strong> (integer) - The desired size in bits of the probable safe prime.</li>
+        <li><strong class="pname"><code>randfunc</code></strong> (callable) - An RNG function where candidate primes are taken from.</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>A probable safe prime in the range
+2^exact_bits &gt; p &gt; 2^(exact_bits-1).</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="Crypto-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a href="http://www.pycryptodome.org/">PyCryptodome.org</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

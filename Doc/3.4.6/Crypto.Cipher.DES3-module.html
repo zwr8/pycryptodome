@@ -57,50 +57,41 @@
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module DES3</h1><p class="nomargin-top"></p>
 <p>Triple DES symmetric cipher</p>
-<p><a class="rst-reference external" href="http://en.wikipedia.org/wiki/Triple_DES" target="_top">Triple DES</a> (or TDES or TDEA or 3DES) is a symmetric block cipher standardized by <a class="rst-reference external" href="http://csrc.nist.gov/publications/nistpubs/800-67/SP800-67.pdf" target="_top">NIST</a>.
-It has a fixed data block size of 8 bytes. Its keys are 128 (<em>Option 1</em>) or 192
-bits (<em>Option 2</em>) long.
-However, 1 out of 8 bits is used for redundancy and do not contribute to
-security. The effective key length is respectively 112 or 168 bits.</p>
-<p>TDES consists of the concatenation of 3 simple <a href="Crypto.Cipher.DES-module.html" class="link">DES</a> ciphers.</p>
-<p>The plaintext is first DES encrypted with <em>K1</em>, then decrypted with <em>K2</em>,
-and finally encrypted again with <em>K3</em>.  The ciphertext is decrypted in the reverse manner.</p>
-<p>The 192 bit key is a bundle of three 64 bit independent subkeys: <em>K1</em>, <em>K2</em>, and <em>K3</em>.</p>
-<p>The 128 bit key is split into <em>K1</em> and <em>K2</em>, whereas <em>K1=K3</em>.</p>
-<p>It is important that all subkeys are different, otherwise TDES would degrade to
-single <a href="Crypto.Cipher.DES-module.html" class="link">DES</a>.</p>
-<p>TDES is cryptographically secure, even though it is neither as secure nor as fast
-as <a href="Crypto.Cipher.AES-module.html" class="link">AES</a>.</p>
+<p><a class="rst-reference external" href="http://en.wikipedia.org/wiki/Triple_DES" target="_top">Triple DES</a> (or TDES or TDEA or 3DES) is a symmetric block cipher
+standardized by <a class="rst-reference external" href="http://csrc.nist.gov/publications/nistpubs/800-67-Rev1/SP-800-67-Rev1.pdf" target="_top">NIST</a>. It has a fixed data block size of 8 bytes.</p>
+<p>TDES consists of the concatenation of 3 simple Single <a href="Crypto.Cipher.DES-module.html" class="link">DES</a> ciphers
+(encryption - decryption - encryption), where each stage uses an
+indipendent sub-key.</p>
+<p>A TDES key is therefore 24 (8+8+8) bytes long. However, like Single DES,
+only 7 out of 8 bits are actually used: the remaining ones are parity
+bits (which practically all TDES implementations ignore).
+Theoreticaly, Triple DES achieves up to 112 bits of effective security.</p>
+<p>Triple DES can also operate with a 16 bytes key (Option 2, also termed 2TDES),
+in which case subkey <em>K1</em> equals subkey <em>K2</em>. The effective security
+is as low as <a class="rst-reference external" href="http://people.scs.carleton.ca/~paulv/papers/Euro90.pdf" target="_top">90 bits</a>.</p>
+<p>Thi implementation checks and enforces the condition <em>K1 != K2 != K3</em>
+(Option 3), as it degrades Triple DES to Single DES.</p>
+<p><em>Use AES, not TDES. This module is provided for legacy purposes only.*</em></p>
 <p>As an example, encryption can be done as follows:</p>
 <blockquote>
 <pre class="py-doctest">
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Cipher <span class="py-keyword">import</span> DES
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto <span class="py-keyword">import</span> Random
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Util <span class="py-keyword">import</span> Counter
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Cipher <span class="py-keyword">import</span> DES3
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Random <span class="py-keyword">import</span> get_random_bytes
 <span class="py-prompt">&gt;&gt;&gt;</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>key = b<span class="py-string">'-8B key-'</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>nonce = Random.new().read(DES.block_size/2)
-<span class="py-prompt">&gt;&gt;&gt; </span>ctr = Counter.new(DES.block_size*8/2, prefix=nonce)
-<span class="py-prompt">&gt;&gt;&gt; </span>cipher = DES.new(key, DES.MODE_CTR, counter=ctr)
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-comment"># When generating a Triple DES key you must check that</span>
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-comment"># subkey1 != subkey2 and subkey2 != subkey3</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>while True:
+<span class="py-prompt">&gt;&gt;&gt; </span>    try:
+<span class="py-prompt">&gt;&gt;&gt; </span>        key = DES3.adjust_key_parity(get_random_bytes(24))
+<span class="py-prompt">&gt;&gt;&gt; </span>        break
+<span class="py-prompt">&gt;&gt;&gt; </span>    <span class="py-keyword">except</span> ValueError
+<span class="py-prompt">&gt;&gt;&gt; </span>        <span class="py-keyword">pass</span>
+<span class="py-prompt">&gt;&gt;&gt;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>cipher = DES3.new(key, DES3.MODE_CFB)
 <span class="py-prompt">&gt;&gt;&gt; </span>plaintext = b<span class="py-string">'We are no longer the knights who say ni!'</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>msg = nonce + cipher.encrypt(plaintext)</pre>
+<span class="py-prompt">&gt;&gt;&gt; </span>msg = cipher.nonce + cipher.encrypt(plaintext)</pre>
 </blockquote>
 
-<!-- ==================== CLASSES ==================== -->
-<a name="section-Classes"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Classes</span></td>
-</tr>
-<tr>
-    <td class="summary" colspan="2">
-        <a href="Crypto.Cipher.DES3.DES3Cipher-class.html" class="summary-name">DES3Cipher</a><br />
-      TDES cipher object
-    </td>
-  </tr>
-</table>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -115,7 +106,25 @@ as <a href="Crypto.Cipher.AES-module.html" class="link">AES</a>.</p>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="adjust_key_parity"></a><span class="summary-sig-name">adjust_key_parity</span>(<span class="summary-sig-arg">key_in</span>)</span><br />
+      Return the TDES key with parity bits correctly set</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="Crypto.Cipher.DES3-module.html#new" class="summary-sig-name">new</a>(<span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">mode</span>,
         <span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
       Create a new TDES cipher</td>
@@ -162,13 +171,6 @@ as <a href="Crypto.Cipher.AES-module.html" class="link">AES</a>.</p>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="MODE_PGP"></a><span class="summary-name">MODE_PGP</span> = <code title="4">4</code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
         <a name="MODE_OFB"></a><span class="summary-name">MODE_OFB</span> = <code title="5">5</code>
     </td>
   </tr>
@@ -190,6 +192,13 @@ as <a href="Crypto.Cipher.AES-module.html" class="link">AES</a>.</p>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a name="MODE_EAX"></a><span class="summary-name">MODE_EAX</span> = <code title="9">9</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a name="block_size"></a><span class="summary-name">block_size</span> = <code title="8">8</code>
     </td>
   </tr>
@@ -197,7 +206,7 @@ as <a href="Crypto.Cipher.AES-module.html" class="link">AES</a>.</p>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="key_size"></a><span class="summary-name">key_size</span> = <code title="(16, 24)"><code class="variable-group">(</code>16<code class="variable-op">, </code>24<code class="variable-group">)</code></code>
+        <a name="key_size"></a><span class="summary-name">key_size</span> = <code title="16, 24">16, 24</code>
     </td>
   </tr>
 </table>
@@ -218,6 +227,7 @@ as <a href="Crypto.Cipher.AES-module.html" class="link">AES</a>.</p>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">new</span>(<span class="sig-arg">key</span>,
+        <span class="sig-arg">mode</span>,
         <span class="sig-arg">*args</span>,
         <span class="sig-arg">**kwargs</span>)</span>
   </h3>
@@ -226,31 +236,52 @@ as <a href="Crypto.Cipher.AES-module.html" class="link">AES</a>.</p>
     </td>
   </tr></table>
   
-  Create a new TDES cipher
+  <p>Create a new TDES cipher</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>key</code></strong> (byte string) - The secret key to use in the symmetric cipher.
-It must be 16 or 24 bytes long. The parity bits will be ignored.</li>
-        <li><strong class="pname"><code>mode</code></strong> (a <em>MODE_*</em> constant) - The chaining mode to use for encryption or decryption.
-Default is <a href="Crypto.Cipher.DES3-module.html#MODE_ECB" class="link">MODE\_ECB</a>.</li>
-        <li><p><strong class="pname"><code>IV</code></strong> (byte string) - The initialization vector to use for encryption or decryption.</p>
-<p>It is ignored for <a href="Crypto.Cipher.DES3-module.html#MODE_ECB" class="link">MODE\_ECB</a> and <a href="Crypto.Cipher.DES3-module.html#MODE_CTR" class="link">MODE\_CTR</a>.</p>
-<p>For <a href="Crypto.Cipher.DES3-module.html#MODE_OPENPGP" class="link">MODE\_OPENPGP</a>, IV must be <a href="Crypto.Cipher.DES3-module.html#block_size" class="link">block\_size</a> bytes long for encryption
-and <a href="Crypto.Cipher.DES3-module.html#block_size" class="link">block\_size</a> +2 bytes for decryption (in the latter case, it is
-actually the <em>encrypted</em> IV which was prefixed to the ciphertext).
-It is mandatory.</p>
-<p>For all other modes, it must be <a href="Crypto.Cipher.DES3-module.html#block_size" class="link">block\_size</a> bytes longs. It is optional and
-when not present it will be given a default value of all zeroes.</p></li>
-        <li><strong class="pname"><code>counter</code></strong> (callable) - (<em>Only</em> <a href="Crypto.Cipher.DES3-module.html#MODE_CTR" class="link">MODE\_CTR</a>). A stateful function that returns the next
-<em>counter block</em>, which is a byte string of <a href="Crypto.Cipher.DES3-module.html#block_size" class="link">block\_size</a> bytes.
-For better performance, use <a href="Crypto.Util.Counter-module.html" class="link" onclick="show_private();">Crypto.Util.Counter</a>.</li>
-        <li><strong class="pname"><code>segment_size</code></strong> (integer) - (<em>Only</em> <a href="Crypto.Cipher.DES3-module.html#MODE_CFB" class="link">MODE\_CFB</a>).The number of bits the plaintext and ciphertext
-are segmented in.
-It must be a multiple of 8. If 0 or not specified, it will be assumed to be 8.</li>
+It must be 16 or 24 bytes long. The parity bits will be ignored.
+The condition K1 != K2 != K3 must hold.</li>
+        <li><strong class="pname"><code>mode</code></strong> (a <em>MODE_*</em> constant) - The chaining mode to use for encryption or decryption.</li>
+        <li><p><strong class="pname"><code>iv</code></strong> (byte string) - (<em>Only</em> <a href="Crypto.Cipher.DES3-module.html#MODE_CBC" class="link">MODE\_CBC</a>, <a href="Crypto.Cipher.DES3-module.html#MODE_CFB" class="link">MODE\_CFB</a>, <a href="Crypto.Cipher.DES3-module.html#MODE_OFB" class="link">MODE\_OFB</a>, <a href="Crypto.Cipher.DES3-module.html#MODE_OPENPGP" class="link">MODE\_OPENPGP</a>).</p>
+<p>The initialization vector to use for encryption or decryption.</p>
+<p>For <a href="Crypto.Cipher.DES3-module.html#MODE_OPENPGP" class="link">MODE\_OPENPGP</a>, IV must be 8 bytes long for encryption
+and 10 bytes for decryption (in the latter case, it is
+actually the <em>encrypted</em> IV which was prefixed to the ciphertext).</p>
+<p>For all other modes, it must be 8 bytes long.</p>
+<p>If not provided, a random byte string will be generated (you can read
+it back via the <tt class="rst-docutils literal">iv</tt> attribute).</p></li>
+        <li><p><strong class="pname"><code>nonce</code></strong> (byte string) - (<em>Only</em> <a href="Crypto.Cipher.DES3-module.html#MODE_EAX" class="link">MODE\_EAX</a> and <a href="Crypto.Cipher.DES3-module.html#MODE_CTR" class="link">MODE\_CTR</a>)
+A value that must never be reused for any other encryption.</p>
+<p>For <a href="Crypto.Cipher.DES3-module.html#MODE_CTR" class="link">MODE\_CTR</a>, its length must be in the range <tt class="rst-docutils literal"><span class="pre">[0..7]</span></tt>.</p>
+<p>For <a href="Crypto.Cipher.DES3-module.html#MODE_EAX" class="link">MODE\_EAX</a>, there are no restrictions, but it is recommended to
+use at least 16 bytes.</p>
+<p>If not provided for <a href="Crypto.Cipher.DES3-module.html#MODE_EAX" class="link">MODE\_EAX</a>, a random 16 byte string is generated
+(you can read it back via the <tt class="rst-docutils literal">nonce</tt> attribute).</p></li>
+        <li><strong class="pname"><code>mac_len</code></strong> (integer) - (<em>Only</em> <a href="Crypto.Cipher.DES3-module.html#MODE_EAX" class="link">MODE\_EAX</a>). Length of the authentication tag, in bytes.
+It must be no larger than 8 (which is the default).</li>
+        <li><strong class="pname"><code>segment_size</code></strong> (integer) - (<em>Only</em> <a href="Crypto.Cipher.DES3-module.html#MODE_CFB" class="link">MODE\_CFB</a>).The number of <strong>bits</strong> the plaintext and ciphertext
+are segmented in. It must be a multiple of 8.
+If not specified, it will be assumed to be 8.</li>
+        <li><strong class="pname"><code>initial_value</code></strong> (integer) - (<em>Only</em> <a href="Crypto.Cipher.DES3-module.html#MODE_CTR" class="link">MODE\_CTR</a>). The initial value for the counter within
+the counter block. By default it is 0.</li>
     </ul></dd>
     <dt>Returns:</dt>
-        <dd>an <a href="Crypto.Cipher.DES3.DES3Cipher-class.html" class="link">DES3Cipher</a> object</dd>
+        <dd><p>a DES cipher object, of the applicable mode:</p>
+<ul class="rst-simple">
+<li><a class="rst-reference external" href="Crypto.Cipher._mode_cbc.CbcMode-class.html" target="_top">CBC</a> mode</li>
+<li><a class="rst-reference external" href="Crypto.Cipher._mode_cfb.CfbMode-class.html" target="_top">CFB</a> mode</li>
+<li><a class="rst-reference external" href="Crypto.Cipher._mode_ctr.CtrMode-class.html" target="_top">CTR</a> mode</li>
+<li><a class="rst-reference external" href="Crypto.Cipher._mode_eax.EaxMode-class.html" target="_top">EAX</a> mode</li>
+<li><a class="rst-reference external" href="Crypto.Cipher._mode_ecb.EcbMode-class.html" target="_top">ECB</a> mode</li>
+<li><a class="rst-reference external" href="Crypto.Cipher._mode_ofb.OfbMode-class.html" target="_top">OFB</a> mode</li>
+<li><a class="rst-reference external" href="Crypto.Cipher._mode_openpgp.OpenPgpMode-class.html" target="_top">OpenPgp</a> mode</li>
+</ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - when the key degrades to Single DES.</li>
+    </ul></dd>
   </dl>
 <div class="fields">      <p><strong>Attention:</strong>
         it is important that all 8 byte subkeys are different,

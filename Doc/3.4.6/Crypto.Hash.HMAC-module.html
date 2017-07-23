@@ -57,7 +57,7 @@
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module HMAC</h1><p class="nomargin-top"></p>
 <p>HMAC (Hash-based Message Authentication Code) algorithm</p>
-<p>HMAC is a MAC defined in <a class="rst-reference external" href="http://www.ietf.org/rfc/rfc2104.txt" target="_top">RFC2104</a> and <a class="rst-reference external" href="http://csrc.nist.gov/publications/fips/fips198/fips-198a.pdf" target="_top">FIPS-198</a> and constructed using
+<p>HMAC is a MAC defined in <a class="rst-reference external" href="http://www.ietf.org/rfc/rfc2104.txt" target="_top">RFC2104</a> and <a class="rst-reference external" href="http://csrc.nist.gov/publications/fips/fips198/fips-198-1_final.pdf" target="_top">FIPS-198</a> and constructed using
 a cryptograpic hash algorithm.
 It is usually named <em>HMAC-X</em>, where <em>X</em> is the hash algorithm; for
 instance <em>HMAC-SHA1</em> or <em>HMAC-MD5</em>.</p>
@@ -68,7 +68,7 @@ instance <em>HMAC-SHA1</em> or <em>HMAC-MD5</em>.</p>
 <li>the length and entropy of the secret key</li>
 </ul>
 </blockquote>
-<p>An example of possible usage is the following:</p>
+<p>This is an example showing how to <em>create</em> a MAC:</p>
 <blockquote>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Hash <span class="py-keyword">import</span> HMAC
@@ -77,6 +77,23 @@ instance <em>HMAC-SHA1</em> or <em>HMAC-MD5</em>.</p>
 <span class="py-prompt">&gt;&gt;&gt; </span>h = HMAC.new(secret)
 <span class="py-prompt">&gt;&gt;&gt; </span>h.update(b<span class="py-string">'Hello'</span>)
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> h.hexdigest()</pre>
+</blockquote>
+<p>This is an example showing how to <em>check</em> a MAC:</p>
+<blockquote>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Hash <span class="py-keyword">import</span> HMAC
+<span class="py-prompt">&gt;&gt;&gt;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-comment"># We have received a message 'msg' together</span>
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-comment"># with its MAC 'mac'</span>
+<span class="py-prompt">&gt;&gt;&gt;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>secret = b<span class="py-string">'Swordfish'</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>h = HMAC.new(secret)
+<span class="py-prompt">&gt;&gt;&gt; </span>h.update(msg)
+<span class="py-prompt">&gt;&gt;&gt; </span>try:
+<span class="py-prompt">&gt;&gt;&gt; </span>  h.verify(mac)
+<span class="py-prompt">&gt;&gt;&gt; </span>  <span class="py-keyword">print</span> <span class="py-string">&quot;The message '%s' is authentic&quot;</span> % msg
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">except</span> ValueError:
+<span class="py-prompt">&gt;&gt;&gt; </span>  <span class="py-keyword">print</span> <span class="py-string">&quot;The message or the key is wrong&quot;</span></pre>
 </blockquote>
 
 <!-- ==================== CLASSES ==================== -->
@@ -109,7 +126,7 @@ instance <em>HMAC-SHA1</em> or <em>HMAC-MD5</em>.</p>
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="Crypto.Hash.HMAC-module.html#new" class="summary-sig-name">new</a>(<span class="summary-sig-arg">key</span>,
-        <span class="summary-sig-arg">msg</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">msg</span>=<span class="summary-sig-default">b(&quot;&quot;)</span>,
         <span class="summary-sig-arg">digestmod</span>=<span class="summary-sig-default">None</span>)</span><br />
       Create a new HMAC object.</td>
           <td align="right" valign="top">
@@ -119,22 +136,6 @@ instance <em>HMAC-SHA1</em> or <em>HMAC-MD5</em>.</p>
         </tr>
       </table>
       
-    </td>
-  </tr>
-</table>
-<!-- ==================== VARIABLES ==================== -->
-<a name="section-Variables"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Variables</span></td>
-</tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="digest_size"></a><span class="summary-name">digest_size</span> = <code title="None">None</code>
     </td>
   </tr>
 </table>
@@ -155,7 +156,7 @@ instance <em>HMAC-SHA1</em> or <em>HMAC-MD5</em>.</p>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">new</span>(<span class="sig-arg">key</span>,
-        <span class="sig-arg">msg</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">msg</span>=<span class="sig-default">b(&quot;&quot;)</span>,
         <span class="sig-arg">digestmod</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -170,7 +171,7 @@ instance <em>HMAC-SHA1</em> or <em>HMAC-MD5</em>.</p>
         <li><strong class="pname"><code>key</code></strong> (byte string) - key for the MAC object.
 It must be long enough to match the expected security level of the
 MAC. However, there is no benefit in using keys longer than the
-<a href="Crypto.Hash.HMAC-module.html#digest_size" class="link">digest\_size</a> of the underlying hash algorithm.</li>
+<em>digest_size</em> of the underlying hash algorithm.</li>
         <li><strong class="pname"><code>msg</code></strong> (byte string) - The very first chunk of the message to authenticate.
 It is equivalent to an early call to <a href="Crypto.Hash.HMAC.HMAC-class.html#update" class="link">HMAC.update()</a>.
 Optional.</li>

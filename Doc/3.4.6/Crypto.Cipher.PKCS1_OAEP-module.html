@@ -65,7 +65,7 @@
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Cipher <span class="py-keyword">import</span> PKCS1_OAEP
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.PublicKey <span class="py-keyword">import</span> RSA
 <span class="py-prompt">&gt;&gt;&gt;</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>message = <span class="py-string">'To be encrypted'</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>message = b<span class="py-string">'To be encrypted'</span>
 <span class="py-prompt">&gt;&gt;&gt; </span>key = RSA.importKey(open(<span class="py-string">'pubkey.der'</span>).read())
 <span class="py-prompt">&gt;&gt;&gt; </span>cipher = PKCS1_OAEP.new(key)
 <span class="py-prompt">&gt;&gt;&gt; </span>ciphertext = cipher.encrypt(message)</pre>
@@ -111,7 +111,8 @@ the RSA key:</p>
           <td><span class="summary-sig"><a href="Crypto.Cipher.PKCS1_OAEP-module.html#new" class="summary-sig-name">new</a>(<span class="summary-sig-arg">key</span>,
         <span class="summary-sig-arg">hashAlgo</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">mgfunc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">label</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">label</span>=<span class="summary-sig-default">b('')</span>,
+        <span class="summary-sig-arg">randfunc</span>=<span class="summary-sig-default">None</span>)</span><br />
       Return a cipher object <a href="Crypto.Cipher.PKCS1_OAEP.PKCS1OAEP_Cipher-class.html" class="link">PKCS1OAEP\_Cipher</a> that can be used to perform PKCS#1 OAEP encryption or decryption.</td>
           <td align="right" valign="top">
             
@@ -142,7 +143,8 @@ the RSA key:</p>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">new</span>(<span class="sig-arg">key</span>,
         <span class="sig-arg">hashAlgo</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">mgfunc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">label</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">label</span>=<span class="sig-default">b('')</span>,
+        <span class="sig-arg">randfunc</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -157,13 +159,15 @@ the RSA key:</p>
 Decryption is only possible if <em>key</em> is a private RSA key.</li>
         <li><strong class="pname"><code>hashAlgo</code></strong> (hash object) - The hash function to use. This can be a module under <a href="Crypto.Hash-module.html" class="link">Crypto.Hash</a>
 or an existing hash object created from any of such modules. If not specified,
-<a href="Crypto.Hash.SHA-module.html" class="link">Crypto.Hash.SHA</a> (that is, SHA-1) is used.</li>
+<a href="Crypto.Hash.SHA1-module.html" class="link">Crypto.Hash.SHA1</a> is used.</li>
         <li><strong class="pname"><code>mgfunc</code></strong> (callable) - A mask generation function that accepts two parameters: a string to
 use as seed, and the lenth of the mask to generate, in bytes.
 If not specified, the standard MGF1 is used (a safe choice).</li>
-        <li><strong class="pname"><code>label</code></strong> (string) - A label to apply to this particular encryption. If not specified,
+        <li><strong class="pname"><code>label</code></strong> (byte string) - A label to apply to this particular encryption. If not specified,
 an empty string is used. Specifying a label does not improve
 security.</li>
+        <li><strong class="pname"><code>randfunc</code></strong> (callable) - A function that returns random bytes.
+The default is <a href="Crypto.Random-module.html#get_random_bytes" class="link" onclick="show_private();">Random.get\_random\_bytes</a>.</li>
     </ul></dd>
   </dl>
 <div class="fields">      <p><strong>Attention:</strong>

@@ -55,8 +55,8 @@
     </td>
   </tr>
 </table>
-<!-- ==================== CLASSOBJ DESCRIPTION ==================== -->
-<h1 class="epydoc">classobj HMAC</h1><p class="nomargin-top"></p>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class HMAC</h1><p class="nomargin-top"></p>
 Class that implements HMAC
 
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -75,7 +75,7 @@ Class that implements HMAC
         <tr>
           <td><span class="summary-sig"><a href="Crypto.Hash.HMAC.HMAC-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">key</span>,
-        <span class="summary-sig-arg">msg</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">msg</span>=<span class="summary-sig-default">b(&quot;&quot;)</span>,
         <span class="summary-sig-arg">digestmod</span>=<span class="summary-sig-default">None</span>)</span><br />
       Create a new HMAC object.</td>
           <td align="right" valign="top">
@@ -95,7 +95,8 @@ Class that implements HMAC
         <tr>
           <td><span class="summary-sig"><a href="Crypto.Hash.HMAC.HMAC-class.html#update" class="summary-sig-name">update</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">msg</span>)</span><br />
-      Continue authentication of a message by consuming the next chunk of data.</td>
+      Continue authentication of a message by consuming the next
+chunk of data.</td>
           <td align="right" valign="top">
             
             
@@ -146,6 +147,25 @@ been authenticated so far.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="Crypto.Hash.HMAC.HMAC-class.html#verify" class="summary-sig-name">verify</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">mac_tag</span>)</span><br />
+      Verify that a given <strong>binary</strong> MAC (computed by another party)
+is valid.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="Crypto.Hash.HMAC.HMAC-class.html#hexdigest" class="summary-sig-name">hexdigest</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Return the <strong>printable</strong> MAC of the message that has been
 authenticated so far.</td>
@@ -158,20 +178,23 @@ authenticated so far.</td>
       
     </td>
   </tr>
-</table>
-<!-- ==================== CLASS VARIABLES ==================== -->
-<a name="section-ClassVariables"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Class Variables</span></td>
-</tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="digest_size"></a><span class="summary-name">digest_size</span> = <code title="None">None</code>
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.Hash.HMAC.HMAC-class.html#hexverify" class="summary-sig-name">hexverify</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">hex_mac_tag</span>)</span><br />
+      Verify that a given <strong>printable</strong> MAC (computed by another party)
+is valid.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
     </td>
   </tr>
 </table>
@@ -193,7 +216,7 @@ authenticated so far.</td>
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">key</span>,
-        <span class="sig-arg">msg</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">msg</span>=<span class="sig-default">b(&quot;&quot;)</span>,
         <span class="sig-arg">digestmod</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
@@ -209,7 +232,7 @@ authenticated so far.</td>
         <li><strong class="pname"><code>key</code></strong> (byte string) - secret key for the MAC object.
 It must be long enough to match the expected security level of the
 MAC. However, there is no benefit in using keys longer than the
-<a href="Crypto.Hash.HMAC.HMAC-class.html#digest_size" class="link">digest\_size</a> of the underlying hash algorithm.</li>
+<code class="link">digest\_size</code> of the underlying hash algorithm.</li>
         <li><strong class="pname"><code>msg</code></strong> (byte string) - The very first chunk of the message to authenticate.
 It is equivalent to an early call to <a href="Crypto.Hash.HMAC.HMAC-class.html#update" class="link">update()</a>. Optional.</li>
         <li><strong class="pname"><code>digestmod</code></strong> (A hash module or object instantiated from <a href="Crypto.Hash-module.html" class="link">Crypto.Hash</a>) - The hash algorithm the HMAC is based on.
@@ -233,7 +256,8 @@ Default is <a href="Crypto.Hash.MD5-module.html" class="link">Crypto.Hash.MD5</a
     </td>
   </tr></table>
   
-  <p>Continue authentication of a message by consuming the next chunk of data.</p>
+  <p>Continue authentication of a message by consuming the next
+chunk of data.</p>
 <p>Repeated calls are equivalent to a single call with the concatenation
 of all the arguments. In other words:</p>
 <blockquote>
@@ -298,8 +322,38 @@ been authenticated so far.</p>
 You can continue updating the object after calling this function.</p>
   <dl class="fields">
     <dt>Returns:</dt>
-        <dd>A byte string of <a href="Crypto.Hash.HMAC.HMAC-class.html#digest_size" class="link">digest\_size</a> bytes. It may contain non-ASCII
+        <dd>A byte string of <code class="link">digest\_size</code> bytes. It may contain non-ASCII
 characters, including null bytes.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="verify"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">verify</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">mac_tag</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  Verify that a given <strong>binary</strong> MAC (computed by another party)
+is valid.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>mac_tag</code></strong> (byte string) - The expected MAC of the message.</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - if the MAC does not match. It means that the message
+has been tampered with or that the MAC key is incorrect.</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -322,8 +376,38 @@ authenticated so far.</p>
 <p>This method does not change the state of the MAC object.</p>
   <dl class="fields">
     <dt>Returns:</dt>
-        <dd>A string of 2* <a href="Crypto.Hash.HMAC.HMAC-class.html#digest_size" class="link">digest\_size</a> bytes. It contains only
+        <dd>A string of 2* <code class="link">digest\_size</code> bytes. It contains only
 hexadecimal ASCII digits.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="hexverify"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">hexverify</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">hex_mac_tag</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  Verify that a given <strong>printable</strong> MAC (computed by another party)
+is valid.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>hex_mac_tag</code></strong> (string) - The expected MAC of the message, as a hexadecimal string.</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - if the MAC does not match. It means that the message
+has been tampered with or that the MAC key is incorrect.</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>

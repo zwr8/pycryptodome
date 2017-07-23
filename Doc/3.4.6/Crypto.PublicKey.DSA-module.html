@@ -84,17 +84,22 @@ them from known components. DSA keys allows you to perform basic signing and
 verification.</p>
 <blockquote>
 <pre class="py-doctest">
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Random <span class="py-keyword">import</span> random
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.PublicKey <span class="py-keyword">import</span> DSA
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Hash <span class="py-keyword">import</span> SHA
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Signature <span class="py-keyword">import</span> DSS
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">from</span> Crypto.Hash <span class="py-keyword">import</span> SHA256
 <span class="py-prompt">&gt;&gt;&gt;</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>message = <span class="py-string">&quot;Hello&quot;</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>key = DSA.generate(1024)
-<span class="py-prompt">&gt;&gt;&gt; </span>h = SHA.new(message).digest()
-<span class="py-prompt">&gt;&gt;&gt; </span>k = random.StrongRandom().randint(1,key.q-1)
-<span class="py-prompt">&gt;&gt;&gt; </span>sig = key.sign(h,k)
+<span class="py-prompt">&gt;&gt;&gt; </span>message = b<span class="py-string">&quot;Hello&quot;</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>key = DSA.generate(2048)
+<span class="py-prompt">&gt;&gt;&gt; </span>f = open(<span class="py-string">&quot;public_key.pem&quot;</span>, <span class="py-string">&quot;w&quot;</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>f.write(key.publickey().exportKey(key))
+<span class="py-prompt">&gt;&gt;&gt; </span>hash_obj = SHA256.new(message)
+<span class="py-prompt">&gt;&gt;&gt; </span>signer = DSS.new(key, <span class="py-string">'fips-186-3'</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>signature = key.sign(hash_obj)
 <span class="py-prompt">&gt;&gt;&gt; </span>...
-<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">if</span> key.verify(h,sig):
+<span class="py-prompt">&gt;&gt;&gt; </span>f = open(<span class="py-string">&quot;public_key.pem&quot;</span>, <span class="py-string">&quot;r&quot;</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>hash_obj = SHA256.new(message)
+<span class="py-prompt">&gt;&gt;&gt; </span>pub_key = DSA.import_key(f.read())
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">if</span> pub_key.verify(hash_obj, signature):
 <span class="py-prompt">&gt;&gt;&gt; </span>    <span class="py-keyword">print</span> <span class="py-string">&quot;OK&quot;</span>
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">else</span>:
 <span class="py-prompt">&gt;&gt;&gt; </span>    <span class="py-keyword">print</span> <span class="py-string">&quot;Incorrect signature&quot;</span></pre>
@@ -110,19 +115,8 @@ verification.</p>
 </tr>
 <tr>
     <td class="summary" colspan="2">
-        <a href="Crypto.PublicKey.DSA._DSAobj-class.html" class="summary-name">_DSAobj</a><br />
+        <a href="Crypto.PublicKey.DSA.DsaKey-class.html" class="summary-name">DsaKey</a><br />
       Class defining an actual DSA key.
-    </td>
-  </tr>
-<tr>
-    <td class="summary" colspan="2">
-        <a href="Crypto.PublicKey.DSA.DSAImplementation-class.html" class="summary-name">DSAImplementation</a><br />
-      A DSA key factory.
-    </td>
-  </tr>
-<tr>
-    <td class="summary" colspan="2">
-        <a href="Crypto.PublicKey.DSA.error-class.html" class="summary-name">error</a>
     </td>
   </tr>
 </table>
@@ -142,8 +136,8 @@ verification.</p>
         <tr>
           <td><span class="summary-sig"><a href="Crypto.PublicKey.DSA-module.html#generate" class="summary-sig-name">generate</a>(<span class="summary-sig-arg">bits</span>,
         <span class="summary-sig-arg">randfunc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">progress_func</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Randomly generate a fresh, new DSA key.</td>
+        <span class="summary-sig-arg">domain</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Generate a new DSA key pair.</td>
           <td align="right" valign="top">
             
             
@@ -159,8 +153,27 @@ verification.</p>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="Crypto.PublicKey.DSA-module.html#construct" class="summary-sig-name">construct</a>(<span class="summary-sig-arg">tup</span>)</span><br />
+          <td><span class="summary-sig"><a href="Crypto.PublicKey.DSA-module.html#construct" class="summary-sig-name">construct</a>(<span class="summary-sig-arg">tup</span>,
+        <span class="summary-sig-arg">consistency_check</span>=<span class="summary-sig-default">True</span>)</span><br />
       Construct a DSA key from a tuple of valid DSA components.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Crypto.PublicKey.DSA-module.html#import_key" class="summary-sig-name">import_key</a>(<span class="summary-sig-arg">extern_key</span>,
+        <span class="summary-sig-arg">passphrase</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Import a DSA key (public or private).</td>
           <td align="right" valign="top">
             
             
@@ -189,44 +202,36 @@ verification.</p>
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">generate</span>(<span class="sig-arg">bits</span>,
         <span class="sig-arg">randfunc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">progress_func</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">domain</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  Randomly generate a fresh, new DSA key.
+  <p>Generate a new DSA key pair.</p>
+<p>The algorithm follows Appendix A.1/A.2 and B.1 of <a class="rst-reference external" href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf" target="_top">FIPS 186-4</a>,
+respectively for domain generation and key pair generation.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>bits</code></strong> (int) - Key length, or size (in bits) of the DSA modulus
-<em>p</em>.
-It must be a multiple of 64, in the closed
-interval [512,1024].</li>
-        <li><strong class="pname"><code>randfunc</code></strong> (callable) - Random number generation function; it should accept
-a single integer N and return a string of random data
-N bytes long.
-If not specified, a new one will be instantiated
-from <tt class="rst-docutils literal">Crypto.Random</tt>.</li>
-        <li><strong class="pname"><code>progress_func</code></strong> (callable) - Optional function that will be called with a short string
-containing the key parameter currently being generated;
-it's useful for interactive applications where a user is
-waiting for a key to be generated.</li>
+        <li><strong class="pname"><code>bits</code></strong> (integer) - Key length, or size (in bits) of the DSA modulus <em>p</em>.
+It must be 1024, 2048 or 3072.</li>
+        <li><strong class="pname"><code>randfunc</code></strong> (callable) - Random number generation function; it accepts a single integer N
+and return a string of random data N bytes long.
+If not specified, the default from <tt class="rst-docutils literal">Crypto.Random</tt> is used.</li>
+        <li><strong class="pname"><code>domain</code></strong> (list) - The DSA domain parameters <em>p</em>, <em>q</em> and <em>g</em> as a list of 3
+integers. Size of <em>p</em> and <em>q</em> must comply to <a class="rst-reference external" href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf" target="_top">FIPS 186-4</a>.
+If not specified, the parameters are created anew.</li>
     </ul></dd>
     <dt>Returns:</dt>
-        <dd>A DSA key object (<a href="Crypto.PublicKey.DSA._DSAobj-class.html" class="link">\_DSAobj</a>).</dd>
+        <dd>A DSA key object (<a href="Crypto.PublicKey.DSA.DsaKey-class.html" class="link">DsaKey</a>).</dd>
     <dt>Raises:</dt>
     <dd><ul class="nomargin-top">
         <li><code><strong class='fraise'>ValueError</strong></code> - When <strong>bits</strong> is too little, too big, or not a multiple of 64.</li>
     </ul></dd>
   </dl>
-<div class="fields">      <p><strong>Attention:</strong>
-        You should always use a cryptographically secure random number generator,
-such as the one defined in the <tt class="rst-docutils literal">Crypto.Random</tt> module; <strong>don't</strong> just use the
-current time and the <tt class="rst-docutils literal">random</tt> module.
-      </p>
-</div></td></tr></table>
+</td></tr></table>
 </div>
 <a name="construct"></a>
 <div>
@@ -235,37 +240,86 @@ current time and the <tt class="rst-docutils literal">random</tt> module.
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">construct</span>(<span class="sig-arg">tup</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">construct</span>(<span class="sig-arg">tup</span>,
+        <span class="sig-arg">consistency_check</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Construct a DSA key from a tuple of valid DSA components.</p>
-<p>The modulus <em>p</em> must be a prime.</p>
-<p>The following equations must apply:</p>
-<ul class="rst-simple">
-<li>p-1 = 0 mod q</li>
-<li>g^x = y mod p</li>
-<li>0 &lt; x &lt; q</li>
-<li>1 &lt; g &lt; p</li>
-</ul>
+  Construct a DSA key from a tuple of valid DSA components.
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><p><strong class="pname"><code>tup</code></strong> (tuple) - A tuple of long integers, with 4 or 5 items
 in the following order:</p>
+<blockquote>
 <ol class="rst-arabic simple">
 <li>Public key (<em>y</em>).</li>
 <li>Sub-group generator (<em>g</em>).</li>
 <li>Modulus, finite field order (<em>p</em>).</li>
 <li>Sub-group order (<em>q</em>).</li>
 <li>Private key (<em>x</em>). Optional.</li>
-</ol></li>
+</ol>
+</blockquote></li>
+        <li><strong class="pname"><code>consistency_check</code></strong> (boolean) - If <em>True</em>, the library will verify that the provided components
+fulfil the main DSA properties.</li>
     </ul></dd>
     <dt>Returns:</dt>
-        <dd>A DSA key object (<a href="Crypto.PublicKey.DSA._DSAobj-class.html" class="link">\_DSAobj</a>).</dd>
+        <dd>A DSA key object (<a href="Crypto.PublicKey.DSA.DsaKey-class.html" class="link">DsaKey</a>).</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>PublicKey.ValueError</strong></code> - When the key being imported fails the most basic DSA validity checks.</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="import_key"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">import_key</span>(<span class="sig-arg">extern_key</span>,
+        <span class="sig-arg">passphrase</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Import a DSA key (public or private).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><p><strong class="pname"><code>extern_key</code></strong> ((byte) string) - The DSA key to import.</p>
+<p>An DSA <em>public</em> key can be in any of the following formats:</p>
+<ul class="rst-simple">
+<li>X.509 certificate (binary or PEM format)</li>
+<li>X.509 <tt class="rst-docutils literal">subjectPublicKeyInfo</tt> (binary or PEM)</li>
+<li>OpenSSH (one line of text, see <a class="rst-reference external" href="http://www.ietf.org/rfc/rfc4253.txt" target="_top">RFC4253</a>)</li>
+</ul>
+<p>A DSA <em>private</em> key can be in any of the following formats:</p>
+<ul class="rst-simple">
+<li><a class="rst-reference external" href="http://www.ietf.org/rfc/rfc5208.txt" target="_top">PKCS#8</a> <tt class="rst-docutils literal">PrivateKeyInfo</tt> or <tt class="rst-docutils literal">EncryptedPrivateKeyInfo</tt>
+DER SEQUENCE (binary or PEM encoding)</li>
+<li>OpenSSL/OpenSSH (binary or PEM)</li>
+</ul>
+<p>For details about the PEM encoding, see <a class="rst-reference external" href="http://www.ietf.org/rfc/rfc1421.txt" target="_top">RFC1421</a>/<a class="rst-reference external" href="http://www.ietf.org/rfc/rfc1423.txt" target="_top">RFC1423</a>.</p>
+<p>The private key may be encrypted by means of a certain pass phrase
+either at the PEM level or at the PKCS#8 level.</p></li>
+        <li><strong class="pname"><code>passphrase</code></strong> (string) - In case of an encrypted private key, this is the pass phrase
+from which the decryption key is derived.</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>A DSA key object (<a href="Crypto.PublicKey.DSA.DsaKey-class.html" class="link">DsaKey</a>).</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - When the given key cannot be parsed (possibly because
+the pass phrase is wrong).</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>

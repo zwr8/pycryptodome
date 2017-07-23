@@ -66,8 +66,8 @@
 <span class="py-prompt">&gt;&gt;&gt; </span>h.update(b<span class="py-string">'Hello'</span>)
 <span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">print</span> h.hexdigest()</pre>
 </blockquote>
-<p>MD2 stand for Message Digest version 2, and it was invented by Rivest in 1989.</p>
-<p>This algorithm is both slow and insecure. Do not use it for new designs.</p>
+<p>MD2 stand for Message Digest version 2, and it was invented by Rivest in 1989.
+This algorithm is both slow and insecure. Do not use it for new designs.</p>
 
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
@@ -125,6 +125,13 @@
         <a name="digest_size"></a><span class="summary-name">digest_size</span> = <code title="16">16</code>
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="block_size"></a><span class="summary-name">block_size</span> = <code title="64">64</code>
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -154,11 +161,11 @@
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>data</code></strong> (byte string) - The very first chunk of the message to hash.
-It is equivalent to an early call to <a href="Crypto.Hash.hashalgo.HashAlgo-class.html#update" class="link">MD2Hash.update()</a>.
+It is equivalent to an early call to <a href="Crypto.Hash.MD2.MD2Hash-class.html#update" class="link">MD2Hash.update()</a>.
 Optional.</li>
     </ul></dd>
     <dt>Returns:</dt>
-        <dd>An <a href="Crypto.Hash.MD2.MD2Hash-class.html" class="link">MD2Hash</a> object</dd>
+        <dd>A <a href="Crypto.Hash.MD2.MD2Hash-class.html" class="link">MD2Hash</a> object</dd>
   </dl>
 </td></tr></table>
 </div>

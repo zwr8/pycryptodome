@@ -88,24 +88,6 @@ Returns the size of the number N in bits.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="Crypto.Util.number-module.html#getRandomNumber" class="summary-sig-name">getRandomNumber</a>(<span class="summary-sig-arg">N</span>,
-        <span class="summary-sig-arg">randfunc</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Deprecated.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a href="Crypto.Util.number-module.html#getRandomInteger" class="summary-sig-name">getRandomInteger</a>(<span class="summary-sig-arg">N</span>,
         <span class="summary-sig-arg">randfunc</span>=<span class="summary-sig-default">None</span>)</span><br />
       getRandomInteger(N:int, randfunc:callable):long
@@ -283,7 +265,7 @@ Convert a long integer to a byte string.</td>
         <tr>
           <td><span class="summary-sig"><a href="Crypto.Util.number-module.html#bytes_to_long" class="summary-sig-name">bytes_to_long</a>(<span class="summary-sig-arg">s</span>)</span><br />
       bytes_to_long(string) : long
-Convert a byte string to a long integer.</td>
+Convert a byte string to a long integer (big endian).</td>
           <td align="right" valign="top">
             
             
@@ -339,13 +321,6 @@ Convert a byte string to a long integer.</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__revision__"></a><span class="summary-name">__revision__</span> = <code title="'$Id$'"><code class="variable-quote">'</code><code class="variable-string">$Id$</code><code class="variable-quote">'</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
         <a href="Crypto.Util.number-module.html#sieve_base" class="summary-name">sieve_base</a> = <code title="(2,
  3,
  5,
@@ -364,6 +339,13 @@ Convert a byte string to a long integer.</td>
         <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'Crypto.Util'"><code class="variable-quote">'</code><code class="variable-string">Crypto.Util</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="maxint"></a><span class="summary-name">maxint</span> = <code title="9223372036854775807">9223372036854775807</code>
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -374,26 +356,6 @@ Convert a byte string to a long integer.</td>
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
-<a name="getRandomNumber"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">getRandomNumber</span>(<span class="sig-arg">N</span>,
-        <span class="sig-arg">randfunc</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  Deprecated.  Use getRandomInteger or getRandomNBitInteger instead.
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
 <a name="getRandomInteger"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -593,7 +555,7 @@ blocksize.</p>
   </tr></table>
   
   <p>bytes_to_long(string) : long
-Convert a byte string to a long integer.</p>
+Convert a byte string to a long integer (big endian).</p>
 <p>This is (essentially) the inverse of long_to_bytes().</p>
   <dl class="fields">
   </dl>

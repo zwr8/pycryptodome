@@ -55,8 +55,8 @@
     </td>
   </tr>
 </table>
-<!-- ==================== CLASSOBJ DESCRIPTION ==================== -->
-<h1 class="epydoc">classobj PKCS1OAEP_Cipher</h1><p class="nomargin-top"></p>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class PKCS1OAEP_Cipher</h1><p class="nomargin-top"></p>
 This cipher can perform PKCS#1 v1.5 OAEP encryption or decryption.
 
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -77,7 +77,8 @@ This cipher can perform PKCS#1 v1.5 OAEP encryption or decryption.
         <span class="summary-sig-arg">key</span>,
         <span class="summary-sig-arg">hashAlgo</span>,
         <span class="summary-sig-arg">mgfunc</span>,
-        <span class="summary-sig-arg">label</span>)</span><br />
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">randfunc</span>)</span><br />
       Initialize this PKCS#1 OAEP cipher object.</td>
           <td align="right" valign="top">
             
@@ -179,7 +180,8 @@ This cipher can perform PKCS#1 v1.5 OAEP encryption or decryption.
         <span class="sig-arg">key</span>,
         <span class="sig-arg">hashAlgo</span>,
         <span class="sig-arg">mgfunc</span>,
-        <span class="sig-arg">label</span>)</span>
+        <span class="sig-arg">label</span>,
+        <span class="sig-arg">randfunc</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -195,13 +197,14 @@ This cipher can perform PKCS#1 v1.5 OAEP encryption or decryption.
 If a public half is given, only encryption is possible.</li>
         <li><strong class="pname"><code>hashAlgo</code></strong> (hash object) - The hash function to use. This can be a module under <a href="Crypto.Hash-module.html" class="link">Crypto.Hash</a>
 or an existing hash object created from any of such modules. If not specified,
-<a href="Crypto.Hash.SHA-module.html" class="link">Crypto.Hash.SHA</a> (that is, SHA-1) is used.</li>
+<a href="Crypto.Hash.SHA1-module.html" class="link">Crypto.Hash.SHA1</a> is used.</li>
         <li><strong class="pname"><code>mgfunc</code></strong> (callable) - A mask generation function that accepts two parameters: a string to
 use as seed, and the lenth of the mask to generate, in bytes.
 If not specified, the standard MGF1 is used (a safe choice).</li>
-        <li><strong class="pname"><code>label</code></strong> (string) - A label to apply to this particular encryption. If not specified,
+        <li><strong class="pname"><code>label</code></strong> (byte string) - A label to apply to this particular encryption. If not specified,
 an empty string is used. Specifying a label does not improve
 security.</li>
+        <li><strong class="pname"><code>randfunc</code></strong> (callable) - A function that returns random bytes.</li>
     </ul></dd>
   </dl>
 <div class="fields">      <p><strong>Attention:</strong>
@@ -231,12 +234,12 @@ section 7.1.1 of RFC3447.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>message</code></strong> (string) - The message to encrypt, also known as plaintext. It can be of
+        <li><strong class="pname"><code>message</code></strong> (byte string) - The message to encrypt, also known as plaintext. It can be of
 variable length, but not longer than the RSA modulus (in bytes)
 minus 2, minus twice the hash output size.</li>
     </ul></dd>
     <dt>Returns:</dt>
-        <dd>A string, the ciphertext in which the message is encrypted.
+        <dd>A byte string, the ciphertext in which the message is encrypted.
 It is as long as the RSA modulus (in bytes).</dd>
     <dt>Raises:</dt>
     <dd><ul class="nomargin-top">
@@ -267,10 +270,10 @@ section 7.1.2 of RFC3447.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>ct</code></strong> (string) - The ciphertext that contains the message to recover.</li>
+        <li><strong class="pname"><code>ct</code></strong> (byte string) - The ciphertext that contains the message to recover.</li>
     </ul></dd>
     <dt>Returns:</dt>
-        <dd>A string, the original message.</dd>
+        <dd>A byte string, the original message.</dd>
     <dt>Raises:</dt>
     <dd><ul class="nomargin-top">
         <li><code><strong class='fraise'>ValueError</strong></code> - If the ciphertext length is incorrect, or if the decryption does not
