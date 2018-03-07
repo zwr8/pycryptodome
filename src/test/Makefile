@@ -1,5 +1,9 @@
-# CPPFLAGS = -DHAVE_X86INTRIN_H
+CPPFLAGS = -DHAVE_X86INTRIN_H
 CPPFLAGS += -I.. $(shell python -c "import sys; print '-DPY_' + sys.byteorder.upper() + '_ENDIAN'")
+
+CFLAGS += -Wall -O3 -fkeep-static-functions
+#CFLAGS += -Wextra
+#CFLAGS += -fstrict-aliasing -Wstrict-aliasing
 
 test: all
 	./tests_addmul128_32

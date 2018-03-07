@@ -92,18 +92,16 @@ size_t static inline addmul32(uint32_t* t, size_t offset, const uint32_t *a, uin
         __m128i r10, r11, r12, r13, r14, r15, r16, r17;
 
         r10 = _mm_shuffle_epi32(
-                _mm_castpd_si128(
-                    _mm_set_sd(*(double*)&a[i])
-                ),
-             _MM_SHUFFLE(2,1,2,0));     // { 0, a[i+1], 0, a[i] }
+                _mm_loadl_epi64((__m128i *)&a[i]),
+                _MM_SHUFFLE(2,1,2,0)
+              );                        // { 0, a[i+1], 0, a[i] }
 
         r11 = _mm_mul_epu32(r0,  r10);  // { a[i+1]*b,  a[i]*b  }
 
         r12 = _mm_shuffle_epi32(
-                _mm_castpd_si128(
-                    _mm_set_sd(*(double*)&t[i+offset])
-                ),
-             _MM_SHUFFLE(2,1,2,0));     // { 0, t[i+1], 0, t[i] }
+                _mm_loadl_epi64((__m128i *)&t[i+offset]),
+                _MM_SHUFFLE(2,1,2,0)
+              );                        // { 0, t[i+1], 0, t[i] }
         r13 = _mm_add_epi64(r12, r1);   // { t[i+1],  t[i]+carry }
 
         r14 = _mm_add_epi64(r11, r13);  // { a[i+1]*b+t[i+1],  a[i]*b+t[i]+carry }
@@ -115,8 +113,9 @@ size_t static inline addmul32(uint32_t* t, size_t offset, const uint32_t *a, uin
 
         r16 = _mm_add_epi64(r14, r15);  // { next_carry, new t[i+1], *, new t[i] }
 
-        r17 = _mm_shuffle_epi32(r16, _MM_SHUFFLE(2,0,1,3));
-                                        // { new t[i+1], new t[i], *, new carry }
+        r17 = _mm_shuffle_epi32(r16,
+                _MM_SHUFFLE(2,0,1,3)
+                );                      // { new t[i+1], new t[i], *, new carry }
 
         _mm_storeh_pd((double*)&t[i+offset],
                       _mm_castsi128_pd(r17)); // Store upper 64 bit word (also t[i+1])
