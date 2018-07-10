@@ -59,6 +59,7 @@ tobytes(s)
 """
 
 import sys
+from binascii import hexlify, unhexlify
 
 if sys.version_info[0] == 2:
     def b(s):
@@ -78,7 +79,6 @@ if sys.version_info[0] == 2:
         return bs
     def byte_string(s):
         return isinstance(s, str)
-    from binascii import hexlify, unhexlify
 
     # In Pyton 2.x, StringIO is a stand-alone module
     from StringIO import StringIO as BytesIO
@@ -117,15 +117,7 @@ else:
 
     # With Python 3.[0-2], unhexlify only accepts bytes.
     # Starting from Python 3.3, strings can be passed too.
-    import binascii
-    hexlify = binascii.hexlify
-    if sys.version_info[1] <= 2:
-        _unhexlify = binascii.unhexlify
-        def unhexlify(x):
-            return _unhexlify(tobytes(x))
-    else:
-        unhexlify = binascii.unhexlify
-    del binascii
+    # unhelify used to only accept bytes in Python 3.0-3.1-3.2
 
     # In Pyton 3.x, StringIO is a sub-module of io
     from io import BytesIO

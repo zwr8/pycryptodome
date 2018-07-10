@@ -21,10 +21,6 @@ matrix:
  - python: pypy3
    env: CFFI=no
  include:
- - python: 3.4
-   env: CFFI=no OLDPY=python3.2
- - python: 3.4
-   env: CFFI=yes OLDPY=python3.2
  - os: osx
    language: generic
    install: pip2 install cibuildwheel==0.9.2

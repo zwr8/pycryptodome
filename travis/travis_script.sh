@@ -3,14 +3,7 @@ set -e -x
 
 export CFLAGS="-Wconversion"
 
-if [ x${OLDPY} == x ]; then
-	PYTHON=python
-else
-	PYTHON=${OLDPY}
-	export PYTHONPATH=${PWD}/custom_packages
-fi
-
-echo ${PYTHON}
+PYTHON=python
 
 PYVERSION=$(${PYTHON} -V 2>&1)
 echo ${PYVERSION}
