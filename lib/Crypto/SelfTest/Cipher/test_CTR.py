@@ -157,6 +157,28 @@ class CtrTests(unittest.TestCase):
         self.assertRaises(ValueError, AES.new, self.key_128, AES.MODE_CTR,
                           nonce=self.nonce_64, initial_value=b("5")*7)
 
+    def test_iv_as_bytes_and_nonce(self):
+
+        # If the iv is a byte string shorter than the block size, the nonce
+        # parameter must be present
+        self.assertRaises(ValueError, AES.new, self.key_128, AES.MODE_CTR,
+                          initial_value=b'5'*15)
+
+        # ... but if its length matches the block size, it is OK to not
+        # pass the nonce (which is assumed to be b'')
+        cipher1 = AES.new(self.key_128, AES.MODE_CTR, initial_value=b'5'*16)
+        pt = b'3' * 16
+        ct1 = cipher1.encrypt(pt)
+
+        cipher2 = AES.new(self.key_128, AES.MODE_CTR, nonce=b'5'*8,
+                initial_value=b'5'*8)
+        ct2 = cipher2.encrypt(pt)
+        
+        self.assertEqual(ct1, ct2)
+
+        ## the nonce attribute is empty
+        self.assertEqual(cipher1.nonce, b'')
+
     def test_iv_with_matching_length(self):
         self.assertRaises(ValueError, AES.new, self.key_128, AES.MODE_CTR,
                           counter=Counter.new(120))

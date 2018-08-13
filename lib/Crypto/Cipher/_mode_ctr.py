@@ -237,89 +237,8 @@ class CtrMode(object):
         return get_raw_buffer(plaintext)
 
 
-def _create_ctr_cipher(factory, **kwargs):
-    """Instantiate a cipher object that performs CTR encryption/decryption.
-
-    :Parameters:
-      factory : module
-        The underlying block cipher, a module from ``Crypto.Cipher``.
-
-    :Keywords:
-      nonce : bytes/bytearray/memoryview
-        The fixed part at the beginning of the counter block - the rest is
-        the counter number that gets increased when processing the next block.
-        The nonce must be such that no two messages are encrypted under the
-        same key and the same nonce.
-
-        The nonce must be shorter than the block size (it can have
-        zero length; the counter is then as long as the block).
-
-        If this parameter is not present, a random nonce will be created with
-        length equal to half the block size. No random nonce shorter than
-        64 bits will be created though - you must really think through all
-        security consequences of using such a short block size.
-
-      initial_value : posive integer or bytes/bytearray/memoryview
-        The initial value for the counter. If not present, the cipher will
-        start counting from 0. The value is incremented by one for each block.
-        The counter number is encoded in big endian mode.
-
-      counter : object
-        Instance of ``Crypto.Util.Counter``, which allows full customization
-        of the counter block. This parameter is incompatible to both ``nonce``
-        and ``initial_value``.
-
-    Any other keyword will be passed to the underlying block cipher.
-    See the relevant documentation for details (at least ``key`` will need
-    to be present).
-    """
-
-    cipher_state = factory._create_base_cipher(kwargs)
-
-    counter = kwargs.pop("counter", None)
-    nonce = kwargs.pop("nonce", None)
-    initial_value = kwargs.pop("initial_value", None)
-    if kwargs:
-        raise TypeError("Invalid parameters for CTR mode: %s" % str(kwargs))
-
-    if counter is not None and (nonce, initial_value) != (None, None):
-            raise TypeError("'counter' and 'nonce'/'initial_value'"
-                            " are mutually exclusive")
-
-    if counter is None:
-        # Crypto.Util.Counter is not used
-        if nonce is None:
-            if factory.block_size < 16:
-                raise TypeError("Impossible to create a safe nonce for short"
-                                " block sizes")
-            nonce = get_random_bytes(factory.block_size // 2)
-        else:
-            if len(nonce) >= factory.block_size:
-                raise ValueError("Nonce is too long")
-        
-        # What is not nonce is counter
-        counter_len = factory.block_size - len(nonce)
-
-        if initial_value is None:
-            initial_value = 0
-
-        if isinstance(initial_value, (int, long)):
-            if (1 << (counter_len * 8)) - 1 < initial_value:
-                raise ValueError("Initial counter value is too large")
-            initial_counter_block = nonce + long_to_bytes(initial_value, counter_len)
-        else:
-            if len(initial_value) != counter_len:
-                raise ValueError("Incorrect length for counter byte string (%d bytes, expected %d)" % (len(initial_value), counter_len))
-            initial_counter_block = nonce + initial_value
-
-        return CtrMode(cipher_state,
-                       initial_counter_block,
-                       len(nonce),                     # prefix
-                       counter_len,
-                       False)                          # little_endian
-
-    # Crypto.Util.Counter is used
-
+def _create_ctr_cipher_Counter(cipher_state, block_size, counter, kwargs):
+    
     # 'counter' used to be a callable object, but now it is
     # just a dictionary for backward compatibility.
     _counter = dict(counter)
@@ -343,10 +262,110 @@ def _create_ctr_cipher(factory, **kwargs):
         words.reverse()
     initial_counter_block = prefix + b"".join(words) + suffix
 
-    if len(initial_counter_block) != factory.block_size:
+    if len(initial_counter_block) != block_size:
         raise ValueError("Size of the counter block (%d bytes) must match"
                          " block size (%d)" % (len(initial_counter_block),
-                                               factory.block_size))
+                                               block_size))
 
     return CtrMode(cipher_state, initial_counter_block,
                    len(prefix), counter_len, little_endian)
+
+
+def _create_ctr_cipher_no_Counter(cipher_state, block_size, nonce, initial_value, kwargs):
+
+    if initial_value is None:
+        initial_value = 0
+
+    value_is_number = isinstance(initial_value, (int, long))
+    
+    # Fix up the nonce
+    if nonce is None:
+        if block_size < 16:
+            raise TypeError("Impossible to create a safe nonce for short block sizes")
+        
+        if not value_is_number and len(initial_value) == block_size:
+            nonce = b''
+        else:
+            nonce = get_random_bytes(block_size // 2)
+    else:
+        if len(nonce) >= block_size:
+            raise ValueError("Nonce is too long")
+    
+    # What is not nonce is counter
+    counter_len = block_size - len(nonce)
+
+    # Create the initial counter block
+    if value_is_number:
+        if (1 << (counter_len * 8)) - 1 < initial_value:
+            raise ValueError("Initial counter value is too large")
+        initial_counter_block = nonce + long_to_bytes(initial_value, counter_len)
+    else:
+        if len(initial_value) != counter_len:
+            raise ValueError("Incorrect length for counter byte string (%d bytes, expected %d)" % (len(initial_value), counter_len))
+        initial_counter_block = nonce + initial_value
+
+    return CtrMode(cipher_state,
+                   initial_counter_block,
+                   len(nonce),                     # prefix
+                   counter_len,
+                   False)                          # little_endian
+
+
+def _create_ctr_cipher(factory, **kwargs):
+    """Instantiate a cipher object that performs CTR encryption/decryption.
+
+    :Parameters:
+      factory : module
+        The underlying block cipher, a module from ``Crypto.Cipher``.
+
+    :Keywords:
+      nonce : bytes/bytearray/memoryview
+        The fixed part at the beginning of the counter block - the rest is
+        the counter number that gets increased when processing the next block.
+        The nonce must be such that no two messages are encrypted under the
+        same key and the same nonce.
+
+        The nonce must be shorter than the block size (it can have
+        zero length; the counter is then as long as the block).
+
+        The nonce can be omitted if the ``initial_value`` is:
+        
+        - a full counter block (a ``bytes`` object with length matching the cipher block)
+        - half counter block (a ''bytes`` object with lenght half the cipher
+          block). In this case, the nonce is created randomly.
+        - an integer that can fit into half of counter block. The nonce is
+          created randomly too.
+
+      initial_value : posive integer or bytes/bytearray/memoryview
+        The initial value for the counter. If not present, the cipher will
+        start counting from 0. The value is incremented by one for each block.
+        The counter number is encoded in big endian mode.
+
+      counter : object
+        Instance of ``Crypto.Util.Counter``, which allows full customization
+        of the counter block. This parameter is incompatible to both ``nonce``
+        and ``initial_value``.
+
+    Any other keyword will be passed to the underlying block cipher.
+    See the relevant documentation for details (at least ``key`` will need
+    to be present).
+    """
+
+    cipher_state = factory._create_base_cipher(kwargs)
+    block_size = factory.block_size
+
+    counter = kwargs.pop("counter", None)
+    nonce = kwargs.pop("nonce", None)
+    initial_value = kwargs.pop("initial_value", None)
+    if kwargs:
+        raise TypeError("Invalid parameters for CTR mode: %s" % str(kwargs))
+
+    if counter is not None and (nonce, initial_value) != (None, None):
+            raise TypeError("'counter' and 'nonce'/'initial_value'"
+                            " are mutually exclusive")
+
+    if counter is None:
+        return _create_ctr_cipher_no_Counter(cipher_state, block_size, nonce, initial_value, kwargs)
+    else:
+        return _create_ctr_cipher_Counter(cipher_state, block_size, counter, kwargs)
+
