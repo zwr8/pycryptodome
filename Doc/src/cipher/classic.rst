@@ -166,22 +166,22 @@ In the following definition, ``<algorithm>`` could be ``AES``:
   :param bytes nonce: the value of the fixed nonce.
     It must be unique for the combination message/key.
     Its length varies from 0 to the block size minus 1.
-    The ``nonce`` parameter can be omitted, in which case:
+    The ``nonce`` parameter can be omitted in three cases:
 
-    - ``initial_value`` must be ``bytes`` of length matching the cipher block.
-      The net effect is that the ``nonce is empty.
-    - ``initial_value```must be ``bytes`` of length half the cipher block.
-      The ``nonce`` is generated randomly..
-    - ``initial_value`` must be an integer encodable in half the cipher block.
+    - ``initial_value`` is ``bytes`` and filling a full cipher block.
+      The net effect is that the ``nonce`` is empty.
+    - ``initial_value`` is ``bytes`` and filling a half cipher block.
+      The ``nonce`` is generated randomly.
+    - ``initial_value`` is an integer that can be encoded into half cipher block.
       The ``nonce`` is generated randomly.
  
-  :param initial_value: the value of the counter for the first counter block.
-    It can be either an integer or ``bytes`` (which is the same integer, just big endian encoded).
-    If not specified, the counter starts at 0.
+  :param initial_value: the value of the counter for the first block.
+    It can be either an integer or ``bytes`` (which will be interpreted as a big endian-encoded integer).
+    If not specified, the initial value of the counter is 0.
   :type initial_value: integer or bytes
   :param counter: a custom counter object created with :func:`Crypto.Util.Counter.new`.
     This allows the definition of a more complex counter block.
-    The ``counter`` parameter is incompatible with ``nonce`` and `initial_value``.
+    The ``counter`` parameter cannot be passed with ``nonce`` and `initial_value``.
   :return: a CTR cipher object
 
 The methods :func:`encrypt` and :func:`decrypt` of a CTR cipher object
