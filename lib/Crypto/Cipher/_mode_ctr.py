@@ -253,14 +253,13 @@ def _create_ctr_cipher_Counter(cipher_state, block_size, counter, kwargs):
                         " (use Crypto.Util.Counter.new)")
 
     # Compute initial counter block
-    words = []
-    while initial_value > 0:
-        words.append(struct.pack('B', initial_value & 255))
-        initial_value >>= 8
-    words += [ b'\x00' ] * max(0, counter_len - len(words))
-    if not little_endian:
-        words.reverse()
-    initial_counter_block = prefix + b"".join(words) + suffix
+    encoded_counter = long_to_bytes(initial_value, counter_len)
+    if len(encoded_counter) != counter_len:
+        raise ValueError("Initial counter value is too large (>%d bytes)" % counter_len)
+    if little_endian:
+        encoded_counter = encoded_counter[::-1]
+
+    initial_counter_block = prefix + encoded_counter + suffix
 
     if len(initial_counter_block) != block_size:
         raise ValueError("Size of the counter block (%d bytes) must match"
