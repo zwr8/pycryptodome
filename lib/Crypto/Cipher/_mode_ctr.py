@@ -279,12 +279,11 @@ def _create_ctr_cipher_no_Counter(cipher_state, block_size, nonce, initial_value
     
     # Fix up the nonce
     if nonce is None:
-        if block_size < 16:
-            raise TypeError("Impossible to create a safe nonce for short block sizes")
-        
         if not value_is_number and len(initial_value) == block_size:
             nonce = b''
         else:
+            if block_size < 16:
+                raise TypeError("Impossible to create a safe nonce for short block sizes")
             nonce = get_random_bytes(block_size // 2)
     else:
         if len(nonce) >= block_size:
